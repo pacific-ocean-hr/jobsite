@@ -1,3 +1,4 @@
+import React from 'react';
 import Theme from './Theme';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Signin from './components/Signin.jsx';
