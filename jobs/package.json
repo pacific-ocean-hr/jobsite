@@ -16,10 +16,6 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "eslint-plugin-react-hooks": "^4.2.0",
     "nodemon": "^2.0.13"
-  },
-  "eslintIgnore": [
-    "node_modules"
-  ]
+  }
 }
