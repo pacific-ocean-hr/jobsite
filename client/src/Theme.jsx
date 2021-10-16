@@ -2,14 +2,19 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
 const theme = {
-  colors: {
-    powderWhite: '#FFFDF9',
-    persianGreen: '#06B49A',
-    lightBlue: '#AFDBD2',
-    onyx: '#36313D',
+  color: {
+    black: '#14080E',
+    purple: '#49475B',
+    teal: '#799496',
+    green: '#ACC196',
+    yellow: '#E9EB9E',
+    white: '#FFFFFF'
   },
-  fonts: ['sans-serif', 'Roboto'],
-  fontSizes: {
+  font: {
+    primary: 'sans-serif',
+    secondary: 'Roboto',
+  },
+  fontSize: {
     small: '1em',
     medium: '2em',
     large: '3em',
