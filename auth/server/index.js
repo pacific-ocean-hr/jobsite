@@ -68,23 +68,28 @@ app.post('/api/signup', (req, res) => {
 app.post('/api/signin', (req, res) => {
   console.log(req.body);
   User.find({ username: req.body.username }, (err, data) => {
-    const password = data[0].password;
-    bcrypt.compare(req.body.password, password)
-      .then(bool => {
-        if (bool) {
-          const user = {
-            id: data[0]._id,
-            username: data[0].username,
-            email: data[0].email,
-            role: data[0].role
+    if (data.length > 0) {
+      const password = data[0].password;
+      bcrypt.compare(req.body.password, password)
+        .then(bool => {
+          if (bool) {
+            const user = {
+              id: data[0]._id,
+              username: data[0].username,
+              email: data[0].email,
+              role: data[0].role
+            }
+            jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, (err, token) => {
+              res.send(token);
+            })
+          } else {
+            res.send('incorrect')
           }
-          jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, (err, token) => {
-            res.send(token);
-          })
-        } else {
-          res.send('incorrect')
-        }
-      })
+        })
+    }else{
+      res.send('incorrect')
+    }
+
   })
 })
 

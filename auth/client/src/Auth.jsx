@@ -15,7 +15,7 @@ class Auth extends React.Component {
       username: '',
       email: '',
       password: '',
-      isNewUser: true
+      isNewUser: false
     }
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
