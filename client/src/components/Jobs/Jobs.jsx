@@ -3,16 +3,24 @@ import fetchJobs from '../../hooks/fetchJobs.jsx';
 import JobListing from './JobListing.jsx';
 import JobDetails from './JobDetails.jsx';
 import Pagination from './Pagination.jsx';
+import SearchForm from './SearchForm.jsx';
 
 const Jobs = () => {
   const [params, setParams] = useState({});
   const [page, setPage] = useState(1);
   const [currentJob, setCurrentJob] = useState(0);
   const { jobs, loading, error } = fetchJobs(params, page);
+  const changeParams = (e) => {
+    const param = e.target.name;
+    const value = e.target.value;
+    setPage(1);
+    setParams((oldParams) => ({ ...oldParams, [param]: value }));
+  };
 
   return (
     <div>
       <h1>JobSite</h1>
+      <SearchForm params={params} changeParams={changeParams} />
       <Pagination page={page} setPage={setPage} />
       <div style={{ display: 'flex' }}>
         {loading && <h1>Loading...</h1>}
