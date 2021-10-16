@@ -54,7 +54,7 @@ const fetchJobs = (params, page) => {
         dispatch({ type: ACTIONS.ERROR, payload: { error: err } });
       });
     return () => {
-      cancelToken1.cancel();
+      cancel_Token.cancel();
     };
   }, [params, page]);
 
