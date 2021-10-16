@@ -3,7 +3,7 @@ import React from 'react';
 const JobDetails = ({ job }) => {
   return (
     <div>
-      <h1>{job.name}</h1>
+      <h2>{job.name}</h2>
       <div
         dangerouslySetInnerHTML={{
           __html: job.contents,

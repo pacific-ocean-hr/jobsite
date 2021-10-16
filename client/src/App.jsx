@@ -21,4 +21,5 @@ const App = () => {
     </Theme>
   );
 };
+
 export default App;
