@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
 //   }
 // }
 
-// app.post('/api/test', verifyToken, (req, res) => {
+// app.get('/api/test', verifyToken, (req, res) => {
 //   console.log(req.token)
 //   jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
 //     if (err) {
@@ -36,6 +36,7 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
 //     }
 //   })
 // })
+
 app.post('/api/signup', (req, res) => {
   User.find({ username: req.body.username }, (err, data) => {
     if (data.length > 0) {

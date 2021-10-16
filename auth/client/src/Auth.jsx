@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import styled from 'styled-components';
+import styled from 'styled-components'
+
 
 // const PageContainer = styled.div`
-//   background: yellow
+// background: yellow
 // `
+
 class Auth extends React.Component {
   constructor() {
     super();
     this.state = {
-      role: '',
+      role: 'seeker',
       username: '',
       email: '',
       password: '',
-      isNewUser: false
+      isNewUser: true
     }
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
@@ -37,7 +39,7 @@ class Auth extends React.Component {
           if (res.data === 'exist') {
             alert('username exist')
           } else {
-            document.cookie = `username=${res.data}`;
+            document.cookie = `token=${res.data}`;
             window.location = "https://google.com/";
           }
         })
@@ -52,14 +54,16 @@ class Auth extends React.Component {
         if (res.data === 'incorrect') {
           alert('incorrect username or password')
         } else {
-          document.cookie = `username=${res.data}`;
+          document.cookie = `token=${res.data}`;
           window.location = "https://google.com/";
         }
       })
     }
-
   }
+
+
   render() {
+
     const { username, email, password, isNewUser } = this.state;
     return (
       <div>
@@ -68,19 +72,19 @@ class Auth extends React.Component {
         <h4>Connect people with jobs and jobs with people</h4>
         <form onSubmit={this.onSubmitHandler}>
           {isNewUser ? <div onChange={this.onChangeHandler}>
-            <input type="radio" value="seeker" name="role" /> Seeker
+            <input type="radio" value="seeker" name="role" defaultChecked/> Seeker
             <input type="radio" value="employer" name="role" /> Employer
           </div> : ''}
           <div>
             <label>username: </label>
-            <input type='text' name="username" onChange={this.onChangeHandler} />
+            <input type='text' name="username" onChange={this.onChangeHandler} required/>
           </div>
           {isNewUser ? <div><label>email: </label>
-            <input type='email' name="email" onChange={this.onChangeHandler} /></div> : ''}
+            <input type='email' name="email" onChange={this.onChangeHandler} required/></div> : ''}
 
           <div>
             <label>password: </label>
-            <input type='password' name="password" onChange={this.onChangeHandler} />
+            <input type='password' name="password" onChange={this.onChangeHandler} required/>
           </div>
           <div>
             <button type='submit' id="signup" >{isNewUser ? 'Create' : 'Go'}</button>
