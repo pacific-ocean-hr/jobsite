@@ -1,40 +1,53 @@
-const express = require('express');
-const { randomBytes } = require('crypto');
-const cors = require('cors');
+const path = require('path');
 const axios = require('axios');
+const express = require('express');
 
 const app = express();
+const port = 3000;
+
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
+
 app.use(express.json());
-app.use(cors());
 
-const posts = {};
-
-app.post('/posts/create', async (req, res) => {
-  const id = randomBytes(4).toString('hex');
-  const { title } = req.body;
-
-  posts[id] = {
-    id,
-    title,
+app.get('/photos', (req, res) => {
+  const options = {
+    url: 'https://jsonplaceholder.typicode.com/photos/?_limit=1',
+    type: 'GET',
+    // data: {
+    //   Limit: 20,
+    //   page: 0,
+    // },
   };
-
-  await axios.post('http://event-bus-srv:4005/events', {
-    type: 'PostCreated',
-    data: {
-      id,
-      title,
-    },
-  });
-
-  res.status(201).send(posts[id]);
+  axios(options)
+    .then((response) => {
+      console.log(response.data);
+      res.status(200).send(response.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
-app.post('/events', (req, res) => {
-  console.log('Received Event', req.body.type);
-
-  res.send({});
+app.get('/posts', (req, res) => {
+  const options = {
+    url: 'https://jsonplaceholder.typicode.com/posts/?_limit=10',
+    type: 'GET',
+    // data: {
+    //   Limit: 20,
+    //   page: 0,
+    // },
+  };
+  axios(options)
+    .then((response) => {
+      console.log(response.data);
+      res.status(200).send(response.data.slice(0, 5000));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
-app.listen(4000, () => {
-  console.log('Listening on 4000');
+
+app.listen(port, () => {
+  console.log(`Listening at http://localhost:${port}`);
 });
