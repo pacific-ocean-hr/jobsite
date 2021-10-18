@@ -4,7 +4,7 @@ import styled from 'styled-components';
 function SearchForm({ params, changeParams }) {
   return (
     <>
-    <div style={{display: 'flex', justifyContent: 'center'}}>
+    <div style={{display: 'flex', justifyContent: 'center', color: '#49475B' }}>
       <h4 style={{ fontStyle: 'italic'}}>"Connecting people with jobs and jobs with people."</h4></div>
       <Form action=''>
         <div>

@@ -3,8 +3,8 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   body {
-  background: ${({ theme }) => theme.body};
-  color: ${({ theme }) => theme.text};
+  background: white;
+  color: black;
   /* background-color: ${({ theme }) => theme.color.purple}; */
   /* transition: background 0.2s ease-in, color 0.2s ease-in; */
   /* background-repeat: no-repeat; */
