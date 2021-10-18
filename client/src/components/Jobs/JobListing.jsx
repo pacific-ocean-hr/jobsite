@@ -31,13 +31,4 @@ const JobListing = ({ listing, index, setCurrentJob, currentJobIndex }) => {
   );
 };
 
-// const Listing = styled.div`
-//   box-shadow: 0 4px 2px -2px gray;
-//   margin: 10px;
-//   font-size: 14px;
-//   border-radius: 8px;
-//   display: grid;
-//   background-color: white;
-// `;
-
 export default JobListing;
