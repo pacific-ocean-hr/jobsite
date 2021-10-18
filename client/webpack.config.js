@@ -1,12 +1,12 @@
-const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
+const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src', 'index.jsx'),
+  entry: path.resolve(__dirname, "src", "index.jsx"),
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
+    publicPath: path.resolve(__dirname, "dist"),
   },
   module: {
     rules: [
@@ -14,17 +14,17 @@ module.exports = {
         test: /\.(js|jsx)?/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
+            presets: ["@babel/preset-env", "@babel/preset-react"],
             plugins: [
               [
-                '@babel/plugin-transform-runtime',
+                "@babel/plugin-transform-runtime",
                 {
                   regenerator: true,
                 },
               ],
-              'babel-plugin-styled-components',
+              "babel-plugin-styled-components",
             ],
           },
         },
@@ -33,23 +33,31 @@ module.exports = {
         test: /\.(png|jp(e*)g|svg|gif)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: 'images/[hash]-[name].[ext]',
+              name: "images/[hash]-[name].[ext]",
             },
           },
         ],
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: ["style-loader", "css-loader"],
       },
     ],
   },
   resolve: {
-    modules: ['node_modules', path.resolve(__dirname, 'app')],
-    extensions: ['.jsx', '.js', '.json', '.css'],
-    alias: { react: path.resolve('./node_modules/react') },
+    modules: ["node_modules", path.resolve(__dirname, "app")],
+    extensions: [".jsx", ".js", ".json", ".css"],
+    alias: { react: path.resolve("./node_modules/react") },
   },
-  devtool: 'eval-source-map',
+  devtool: "eval-source-map",
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
+    compress: true,
+    port: 3000,
+    open: true,
+    historyApiFallback: true,
+    stats: "minimal",
+  },
 };
