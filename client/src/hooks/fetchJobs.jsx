@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useReducer, useEffect } from 'react';
+import { useReducer, useEffect } from 'react';
+
 const ACTIONS = {
   MAKE_REQUEST: 'make_request',
   GET_DATA: 'get-data',
@@ -11,7 +12,11 @@ const reducer = (state, action) => {
     case ACTIONS.MAKE_REQUEST:
       return { loading: true, jobs: [] };
     case ACTIONS.GET_DATA:
-      return { ...state, loading: false, jobs: action.payload.jobs };
+      return {
+        ...state,
+        loading: false,
+        jobs: action.payload.jobs.slice(0, 5),
+      };
     case ACTIONS.ERROR:
       return {
         ...state,
@@ -32,14 +37,14 @@ const fetchJobs = (params, page) => {
   });
 
   useEffect(() => {
-    const cancel_Token = axios.CancelToken.source();
+    const cancelToken = axios.CancelToken.source();
     dispatch({ type: ACTIONS.MAKE_REQUEST });
     axios
       .get('https://www.themuse.com/api/public/jobs', {
-        cancelToken: cancel_Token.token,
+        cancelToken: cancelToken.token,
         params: {
           category: 'Software Engineer',
-          page: page,
+          page,
           ...params,
         },
       })
@@ -54,7 +59,7 @@ const fetchJobs = (params, page) => {
         dispatch({ type: ACTIONS.ERROR, payload: { error: err } });
       });
     return () => {
-      cancel_Token.cancel();
+      cancelToken.cancel();
     };
   }, [params, page]);
 
