@@ -1,22 +1,21 @@
-/* eslint-disable operator-linebreak */
 import React, { useState } from 'react';
-import moment from 'moment';
+import fetchJobs from '../../hooks/fetchJobs.jsx';
+import JobListing from './JobListing.jsx';
+import JobDetails from './JobDetails.jsx';
+import Pagination from './Pagination.jsx';
+import SearchForm from './SearchForm.jsx';
 import styled from 'styled-components';
-import fetchJobs from '../../hooks/fetchJobs';
-import JobListing from './JobListing';
-import JobDetails from './JobDetails';
-import Pagination from './Pagination';
-import SearchForm from './SearchForm';
+import moment from 'moment';
 
 const Jobs = () => {
   const [params, setParams] = useState({});
   const [page, setPage] = useState(1);
   const [currentJob, setCurrentJob] = useState(0);
-  const { jobs } = fetchJobs(params, page);
+  const { jobs, loading, error } = fetchJobs(params, page);
 
   const changeParams = (e) => {
     const param = e.target.name;
-    const { value } = e.target;
+    const value = e.target.value;
     setPage(1);
     setParams((oldParams) => ({ ...oldParams, [param]: value }));
   };
@@ -32,14 +31,16 @@ const Jobs = () => {
           </h3>
           <Listings>
             {jobs &&
-              jobs.map((listing, index) => (
-                <JobListing
-                  key={listing.name}
-                  listing={listing}
-                  index={index}
-                  setCurrentJob={setCurrentJob}
-                />
-              ))}
+              jobs.map((listing, index) => {
+                return (
+                  <JobListing
+                    key={index}
+                    listing={listing}
+                    index={index}
+                    setCurrentJob={setCurrentJob}
+                  />
+                );
+              })}
           </Listings>
         </div>
         <Details>
