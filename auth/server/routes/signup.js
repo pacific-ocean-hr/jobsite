@@ -16,14 +16,16 @@ const signup = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(req.body.password, salt);
     const newUser = await User.create({
-      username: req.body.username,
+      lastName: req.body.lastName,
+      firstName: req.body.firstName,
       password: hash,
       email: req.body.email,
       role: req.body.role,
     });
     const user = {
       id: newUser._id,
-      username: newUser.username,
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
       email: newUser.email,
       role: newUser.role,
     };

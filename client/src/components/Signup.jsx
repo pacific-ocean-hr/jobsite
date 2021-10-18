@@ -1,19 +1,69 @@
 import React, { useState } from "react";
 import axios from "axios";
+import styled from "styled-components";
+import { Link, Redirect } from "react-router-dom";
 
-import { Button, PageContainer, Text, FormInput, Form } from "../AuthStyle.jsx";
+import Theme from "../Theme.jsx";
+
+const PageContainer = styled.div`
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const Form = styled.form`
+  border: 1px solid black;
+  padding: 80px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const FormInput = styled.div`
+  margin: 10px 0;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & > input {
+    border-color: ${(props) => `${props.theme.colors.lightBlue}`};
+  }
+`;
+const Title = styled.div`
+  border: ${(props) => `1px solid ${props.theme.colors.lightBlue}`};
+  width: 90%;
+  box-shadow: ${(props) => `1px 5px 5px ${props.theme.colors.lightBlue}`};
+  text-align: center;
+  & > h1,
+  h3,
+  h4 {
+    margin: 3px;
+  }
+`;
+const Button = styled.button`
+  text-align: center;
+  background-color: ${(props) => `${props.theme.colors.lightBlue}`};
+  color: ${(props) => `${props.theme.colors.powderWhite}`};
+  border: ${(props) => `${props.theme.colors.persianGreen}`};
+  text-decoration: "none";
+  padding: 5px 40px;
+`;
 
 const Signup = () => {
-  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("seeker");
+  const [authorized, setAuthorized] = useState(false);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
     const response = await axios.post("http://localhost:4000/api/signup", {
-      username,
+      firstName,
+      lastName,
       password,
       email,
       role,
@@ -22,17 +72,21 @@ const Signup = () => {
       alert("username exist");
     } else {
       document.cookie = `token=${response.data}`;
+      setAuthorized(true);
     }
   };
 
-  return (
+  if (authorized) {
+    return <Redirect to="/" />;
+  } else {
+    return (
       <PageContainer>
         <Form onSubmit={onSubmitHandler}>
-          <Text>
+          <Title>
             <h1>Sign Up</h1>
             <h3>Welcome to JobSite</h3>
             <h4>Connect people with jobs and jobs with people</h4>
-          </Text>
+          </Title>
           <FormInput
             onChange={(e) => {
               setRole(e.target.value);
@@ -48,13 +102,25 @@ const Signup = () => {
             </div>
           </FormInput>
           <FormInput>
-            <label>username: </label>
+            <label>First Name: </label>
             <input
               type="text"
-              name="username"
-              value={username}
+              name="firstName"
+              value={firstName}
               onChange={(e) => {
-                setUsername(e.target.value);
+                setFirstName(e.target.value);
+              }}
+              required
+            />
+          </FormInput>
+          <FormInput>
+            <label>Last Name: </label>
+            <input
+              type="text"
+              name="lastNmae"
+              value={lastName}
+              onChange={(e) => {
+                setLastName(e.target.value);
               }}
               required
             />
@@ -82,12 +148,11 @@ const Signup = () => {
               required
             />
           </FormInput>
-          <Button type="submit" id="signup">
-            Create
-          </Button>
+          <Button type="submit">Create</Button>
         </Form>
       </PageContainer>
-  );
+    );
+  }
 };
 
 export default Signup;

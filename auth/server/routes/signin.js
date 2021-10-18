@@ -17,7 +17,8 @@ const signin = async (req, res) => {
     if (bool) {
       const user = {
         id: response[0]._id,
-        username: response[0].username,
+        firstName: response[0].firstName,
+        lastName: response[0].lastName,
         email: response[0].email,
         role: response[0].role,
       };
@@ -27,7 +28,7 @@ const signin = async (req, res) => {
     } else {
       res.send("incorrect");
     }
-  }else{
+  } else {
     res.send("incorrect");
   }
 };
