@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Signin from './components/Signin.jsx';
 import Jobs from './components/Jobs/Jobs';
 import NavBar from './components/NavBar/NavBar';
+import Notes from './components/Notes';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <h6 style={{ textAlign: 'center' }}>
           {moment().format('dddd, MMMM Do YYYY, h:mm:ss a')}
         </h6>
+        <Notes></Notes>
       </div>
     </ThemeProvider>
   );

@@ -30,6 +30,7 @@ export const GlobalStyle = createGlobalStyle`
   border-radius: 8px;
   display: grid;
   background-color: white;
+  padding: 20px;
   }
   .bigCard {
     padding: 20px;
