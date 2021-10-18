@@ -3,10 +3,7 @@ const axios = require('axios');
 const express = require('express');
 
 const app = express();
-const port = 3000;
-
-app.use(express.static(path.join(__dirname, 'client', 'dist')));
-
+const port = 4001;
 app.use(express.json());
 
 app.get('/photos', (req, res) => {
@@ -46,7 +43,6 @@ app.get('/posts', (req, res) => {
       console.log(err);
     });
 });
-
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
