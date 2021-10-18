@@ -41,7 +41,7 @@ const Jobs = () => {
               })}
           </Listings>
         </div>
-        <Details>
+        <Details className='bigCard'>
           {jobs[currentJob] && <JobDetails job={jobs[currentJob]} />}
         </Details>
         <Pagination page={page} setPage={setPage} />
@@ -55,24 +55,20 @@ const JobPage = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   padding: 40px;
+  padding-top: 20px;
   border-radius: 6px;
+  background-color: #f2f2f2;
+  margin-top: 40px;
 `;
-// background-color: #f2f2f2;
+//
 
 const Listings = styled.div`
-  background-color: white;
+  background-color: #f2f2f2;
 `;
 
 const Details = styled.div`
-  border-radius: 8px;
-  border: 2px solid #ACC196;
-  background-color: white;
-  box-shadow: 0px 4px 4px -1px gray;
-  font-family: Sans-serif;
-  padding: 20px;
-  max-height: 500px;
-  overflow-y: scroll;
+  border: 3px solid #799496;
+  font-size: 12px;
 `;
-// border: 1px solid #799496;
 
 export default Jobs;

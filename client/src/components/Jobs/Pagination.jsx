@@ -17,8 +17,8 @@ const Pagination = ({ page, setPage }) => {
 
 const PageButton = styled.button`
   padding: 3px;
-  background-color: #E9EB9E;
-  color: black;
+  background-color: #ACC196;
+  color: white;
   border-radius: 5px;
   border: 1px solid gray;
 `;

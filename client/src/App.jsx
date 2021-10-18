@@ -1,5 +1,6 @@
 import React from 'react';
-import Theme from './Theme';
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyle, theme } from './Theme.jsx';
 import moment from 'moment';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Signin from './components/Signin.jsx';
@@ -8,7 +9,8 @@ import NavBar from './components/NavBar/NavBar';
 
 const App = () => {
   return (
-    <Theme>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
       <div className='App'>
         <Router>
           <NavBar />
@@ -18,11 +20,11 @@ const App = () => {
             </Route>
           </Switch>
         </Router>
-        <h6 style={{ fontFamily: 'Sans-serif', textAlign: 'center' }}>
+        <h6 style={{ textAlign: 'center' }}>
           {moment().format('dddd, MMMM Do YYYY, h:mm:ss a')}
         </h6>
       </div>
-    </Theme>
+    </ThemeProvider>
   );
 };
 

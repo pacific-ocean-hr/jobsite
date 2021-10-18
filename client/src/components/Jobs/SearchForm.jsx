@@ -8,7 +8,7 @@ function SearchForm({ params, changeParams }) {
         <div>
           <Input type='text' placeholder='Enter Keyword' />
           &nbsp;&nbsp;
-          <SearchButton>Search Jobs</SearchButton>
+          <button className='mainButton'>Search Jobs</button>
         </div>
       </Form>
       <Filters>
@@ -20,10 +20,10 @@ function SearchForm({ params, changeParams }) {
           <option value={4}> $100k + </option>
         </FilterOptions>
         <FilterOptions>
-          <option value={0}>Miles Away</option>
-          <option value={1}> less than 10 </option>
-          <option value={2}> 10 - 20 </option>
-          <option value={2}> 21 - 50 </option>
+          <option value={0}>Type</option>
+          <option value={1}> Contract </option>
+          <option value={2}> Part-Time </option>
+          <option value={2}> Full-Time </option>
         </FilterOptions>
         <FilterOptions>
           <option value={0}>Exp. Level</option>
@@ -42,20 +42,12 @@ const Form = styled.form`
   position: relative;
   justify-content: space-around;
   flex-wrap: nowrap;
+  margin-top: 40px;
 `;
 
 const Input = styled.input`
   height: 25px;
   width: 300px;
-`;
-
-const SearchButton = styled.button`
-  padding: 7px;
-  font-family: Sans-serif;
-  background-color: #49475B;
-  color: white;
-  border-radius: 5px;
-  border: 1px solid gray;
 `;
 
 const FilterOptions = styled.select`

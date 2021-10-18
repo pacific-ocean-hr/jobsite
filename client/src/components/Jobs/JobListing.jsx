@@ -13,47 +13,31 @@ const JobListing = ({ listing, index, setCurrentJob, currentJobIndex }) => {
   };
 
   return (
-    <Listing onClick={() => setCurrentJob(index)}
-
+    <div className='card'
+      onClick={() => setCurrentJob(index)}
       onMouseEnter={toggleTextHovered}
       onMouseLeave={toggleTextHovered}
-      style={{ color: `${textHovered || currentJobIndex === index ? 'black' : 'gray'}`, border: `${currentJobIndex === index ? '2px solid #ACC196' : '0.1px solid #E9EB9E'}`, padding: '20px', borderRadius: '8px' }}>
-        <img src={'../../../dist/assets/Novartis.png'} />
-        <h3>{listing.company.name}: {listing.name}</h3>
-        <h6>Posted {moment(listing.publication_date).fromNow()}</h6>
+      style={{ color: `${textHovered || currentJobIndex === index ? 'black' : 'gray'}`, border: `${currentJobIndex === index ? '3px solid #799496' : 'solid thin #ACC196'}`, padding: '20px', borderRadius: '8px' }}>
+        <h3><img src={'../assets/Novartis.png'} style={{ maxHeight: '40px', maxWidth: '40px' }}/>&nbsp;&nbsp;{listing.company.name}: {listing.name}</h3>
+        <h6>Posted {moment(listing.publication_date).fromNow()}
         <a href={listing.refs.landing_page} target='_blank'>
-          <ApplyButton
+          <button className='mainButton'
           onMouseEnter={toggleHovered}
           onMouseLeave={toggleHovered}
           style={{ transform: `${hovered ? "scale(1.15, 1.15)" : "scale(1, 1)"}` }}
-          >Apply</ApplyButton>
-        </a>
-
-    </Listing>
+          >Apply</button>
+        </a></h6>
+    </div>
   );
 };
 
-const Listing = styled.div`
-  box-shadow: 0 4px 2px -2px gray;
-  margin: 10px;
-  font-family: Sans-serif;
-  color: gray;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: row;
-  flex-flow: row wrap;
-  justify-content:space-between;
-`;
-
-const ApplyButton = styled.button`
-  padding: 8px;
-  background-color: #49475B;
-  color: white;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid gray;
-  font-family: Sans-serif;
-  justify-content: flex-end;
-`;
+// const Listing = styled.div`
+//   box-shadow: 0 4px 2px -2px gray;
+//   margin: 10px;
+//   font-size: 14px;
+//   border-radius: 8px;
+//   display: grid;
+//   background-color: white;
+// `;
 
 export default JobListing;

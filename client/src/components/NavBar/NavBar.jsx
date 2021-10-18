@@ -8,10 +8,22 @@ function NavBar() {
     <Header>
       <Nav>
         <StyledLinks>
-          <NavLink to='/' exact className='styled-link'>
+          <NavLink
+            to='/'
+            exact
+            activeStyle={{
+              borderBottom: 'solid thin #ACC196',
+            }}
+            className='styled-link'>
             Jobs
           </NavLink>
-          <NavLink to='/blog' exact className='styled-link'>
+          <NavLink
+            to='/blog'
+            exact
+            activeStyle={{
+              borderBottom: 'solid thin #ACC196',
+            }}
+            className='styled-link'>
             Blog
           </NavLink>
         </StyledLinks>
@@ -20,13 +32,25 @@ function NavBar() {
           exact
           style={{ textDecoration: 'none', color: 'black', fontSize: '2em' }}
         >
-          <img src='../../../dist/assets/logo.png' alt='JobSite' />
+          <img src='../assets/logo.png' alt='JobSite' style={{ maxHeight: '70px', maxWidth: '150px' }} />
         </NavLink>
         <StyledLinks>
-          <NavLink to='/signup' exact className='styled-link'>
+          <NavLink
+            to='/signup'
+            exact
+            activeStyle={{
+              borderBottom: 'solid thin #ACC196',
+            }}
+            className='styled-link'>
             Sign Up
           </NavLink>
-          <NavLink to='/signin' exact className='styled-link'>
+          <NavLink
+            to='/signin'
+            exact
+            activeStyle={{
+              borderBottom: 'solid thin #ACC196',
+            }}
+            className='styled-link'>
             <b>Sign In</b>
           </NavLink>
         </StyledLinks>
@@ -38,7 +62,6 @@ function NavBar() {
 const Header = styled.header`
   padding: 0px;
   margin-bottom: 12px;
-  font-family: Sans-serif;
 `;
 
 const Nav = styled.nav`
@@ -54,14 +77,14 @@ const Nav = styled.nav`
 
 const StyledLinks = styled.div`
   .styled-link {
-    font-size: 1em;
+    font-size: 18px;
     padding: 10px 12px;
     text-decoration: none;
     border-radius: 4px;
     color: rgba(0, 0, 0, 0.6);
     &:hover {
-      background-color: rgba(0, 0, 0, 0.08);
-      color: rgba(0.9);
+      background-color: #ACC196;
+      color: white;
     }
   }
 `;
