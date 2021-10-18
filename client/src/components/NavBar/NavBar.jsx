@@ -61,7 +61,7 @@ function NavBar() {
 
 const Header = styled.header`
   padding: 0px;
-  margin-bottom: 12px;
+  margin-bottom: 5px;
 `;
 
 const Nav = styled.nav`

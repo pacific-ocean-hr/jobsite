@@ -4,6 +4,8 @@ import styled from 'styled-components';
 function SearchForm({ params, changeParams }) {
   return (
     <>
+    <div style={{display: 'flex', justifyContent: 'center'}}>
+      <h4 style={{ fontStyle: 'italic'}}>"Connecting people with jobs and jobs with people."</h4></div>
       <Form action=''>
         <div>
           <Input type='text' placeholder='Enter Keyword' />
@@ -42,7 +44,7 @@ const Form = styled.form`
   position: relative;
   justify-content: space-around;
   flex-wrap: nowrap;
-  margin-top: 40px;
+  margin-top: 20px;
 `;
 
 const Input = styled.input`
