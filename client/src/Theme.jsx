@@ -11,8 +11,8 @@ const theme = {
     white: '#FFFFFF'
   },
   font: {
-    primary: 'sans-serif',
-    secondary: 'Roboto',
+    primary: 'Roboto',
+    secondary: 'sans-serif',
   },
   fontSize: {
     small: '1em',
