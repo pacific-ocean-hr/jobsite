@@ -1,10 +1,10 @@
 const path = require('path');
-const axios = require('axios');
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
 const port = 3000;
-
+app.use(cors({ origin: '*' }));
 app.use(express.static(path.join(__dirname, '/dist')));
 
 app.use(express.json());
