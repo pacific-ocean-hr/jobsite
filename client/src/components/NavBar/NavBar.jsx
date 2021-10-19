@@ -1,9 +1,11 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 // import logo from '../../../dist/assets/logo.png';
 
-function NavBar() {
+function NavBar({ user }) {
   return (
     <Header>
       <Nav>
@@ -27,15 +29,20 @@ function NavBar() {
           />
         </NavLink>
         <StyledLinks>
-          <NavLink to="/signup" exact className="styled-link">
-            Sign Up
-          </NavLink>
-          <NavLink to="/signin" exact className="styled-link">
-            <b>Sign In</b>
-          </NavLink>
-          <NavLink to="/profile" exact className="styled-link">
-            Profile
-          </NavLink>
+          {user === null && (
+            <div>
+              <NavLink to="/signup" exact className="styled-link">
+                Sign Up
+              </NavLink>
+              <NavLink to="/signin" exact className="styled-link">
+                <b>Sign In</b>
+              </NavLink>
+              <NavLink to="/profile" exact className="styled-link">
+                Profile
+              </NavLink>
+            </div>
+          )}
+          {user !== null && <span>Welcome, {user.firstName}</span>}
         </StyledLinks>
       </Nav>
     </Header>
@@ -72,5 +79,12 @@ const StyledLinks = styled.div`
     }
   }
 `;
-
+NavBar.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    email: PropTypes.string,
+  }),
+}.required;
 export default NavBar;
