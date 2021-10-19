@@ -9,6 +9,7 @@ import NavBar from './components/NavBar/NavBar';
 import Blog from './components/Blog/Blog';
 import Signup from './components/Auth/Signup';
 import Signin from './components/Auth/Signin';
+// import JobCalendar from './components/Calendar/Calendar';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -37,6 +38,9 @@ const App = () => {
             <Route exact path="/signin">
               <Signin setUser={setUser} />
             </Route>
+            {/* <Route exact path="/calendar">
+              <JobCalendar />
+            </Route> */}
           </Switch>
         </Router>
         <h6 style={{ textAlign: 'center' }}>
