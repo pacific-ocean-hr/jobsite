@@ -33,6 +33,9 @@ function NavBar() {
           <NavLink to="/signin" exact className="styled-link">
             <b>Sign In</b>
           </NavLink>
+          <NavLink to="/profile" exact className="styled-link">
+            Profile
+          </NavLink>
         </StyledLinks>
       </Nav>
     </Header>

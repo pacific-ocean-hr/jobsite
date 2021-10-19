@@ -6,6 +6,7 @@ import { GlobalStyle, theme } from './Theme';
 import Jobs from './components/Jobs/Jobs';
 import NavBar from './components/NavBar/NavBar';
 import Blog from './components/Blog/Blog';
+import UserProfile from './components/UserProfile/UserProfile';
 
 const App = () => (
   <ThemeProvider theme={theme}>
@@ -19,6 +20,9 @@ const App = () => (
           </Route>
           <Route exact path="/blog">
             <Blog />
+          </Route>
+          <Route exact path="/profile">
+            <UserProfile />
           </Route>
         </Switch>
       </Router>
