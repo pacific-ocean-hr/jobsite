@@ -52,4 +52,12 @@ module.exports = {
     alias: { react: path.resolve('./node_modules/react') },
   },
   devtool: 'eval-source-map',
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 3000,
+    open: true,
+    historyApiFallback: true,
+    stats: 'minimal',
+  },
 };
