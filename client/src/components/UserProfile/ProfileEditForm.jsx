@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import ProfileHeader from './ProfileHeader';
 
@@ -17,7 +18,7 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-  margin: 10px 0;
+  margin: 10px 5px;
   padding: 10px;
 `;
 
@@ -25,16 +26,29 @@ const ProfileEditForm = ({ user, setIsEditing }) => {
   const [firstName, setFirstName] = useState(user.firstName || '');
   const [lastName, setLastName] = useState(user.lastName || '');
   const [email, setEmail] = useState(user.email || '');
-  const [resume, setResume] = useState('');
+  const [resumeName, setResumeName] = useState('');
+  const [resumeFile, setResumeFile] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log('submitted', {
-      firstName, lastName, email, resume,
-    });
+    const dataForm = new FormData();
+    dataForm.append('file', resumeFile);
+    dataForm.set('id', user.id);
+    dataForm.set('firstName', firstName);
+    dataForm.set('lastName', lastName);
+    dataForm.set('email', email);
+
+    axios.patch('http://localhost:4000/api/user-profile', dataForm)
+      .then(() => console.log('success'))
+      .catch((err) => console.log(err));
 
     setIsEditing(false);
+  };
+
+  const handleUpload = (e) => {
+    setResumeFile(e.target.files[0]);
+    setResumeName(e.target.value);
   };
 
   return (
@@ -54,8 +68,9 @@ const ProfileEditForm = ({ user, setIsEditing }) => {
       </Label>
       <Label>
         Upload Resume
-        <Input type="file" name="resume" onChange={(e) => setResume(e.target.value)} value={resume} />
+        <Input type="file" name="resume" onChange={handleUpload} value={resumeName} />
       </Label>
+      <Input type="button" value="Cancel" onClick={() => setIsEditing(false)} />
       <Input type="submit" value="Done" />
     </ProfileForm>
   );

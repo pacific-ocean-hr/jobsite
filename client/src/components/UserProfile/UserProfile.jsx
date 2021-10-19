@@ -34,9 +34,7 @@ const Button = styled.button`
 
 const UserProfile = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
-  // const { firstName } s= user;
 
-  console.log('user:: ', user);
   return (
     <ProfileContainer>
       {user && !isEditing
