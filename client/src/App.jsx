@@ -13,15 +13,16 @@ import UserProfile from './components/UserProfile/UserProfile';
 
 import { GlobalStyle, theme } from './Theme';
 
-
 const App = () => {
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     const token = document.cookie;
     if (token) {
       setUser(jwt(token.slice(6)));
     }
   }, [document.cookie]);
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -42,7 +43,7 @@ const App = () => {
               <Signin setUser={setUser} />
             </Route>
             <Route exact path="/profile">
-              <UserProfile />
+              <UserProfile user={user} />
             </Route>
           </Switch>
         </Router>
