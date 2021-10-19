@@ -2,9 +2,17 @@ const User = require('../db/index');
 
 const updateUser = async (req, res) => {
   const resume = req.files[0];
-  let doc = await User.findOneAndUpdate({ _id: '616e2d62db1c462981449b99' }, { resume }, { new: true });
+  const { id, firstName, lastName, email } = req.body;
+
+  let doc = await User.findOneAndUpdate({ _id: id }, {
+    firstName,
+    lastName,
+    email,
+    resume,
+  }, { new: true });
 
   try {
+    console.log(doc);
     res.send(doc);
   } catch (err) {
     console.log(err);
