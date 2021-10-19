@@ -13,12 +13,14 @@ const signin = async (req, res) => {
     const password = await response[0].password;
     const bool = await bcrypt.compare(req.body.password, password);
     if (bool) {
+      const { _id, firstName, lastName, email, role, resume } = response[0];
       const user = {
-        id: response[0]._id,
-        firstName: response[0].firstName,
-        lastName: response[0].lastName,
-        email: response[0].email,
-        role: response[0].role,
+        id: _id,
+        firstName,
+        lastName,
+        email,
+        role,
+        resume,
       };
       jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, (err, token) => {
         res.send(token);

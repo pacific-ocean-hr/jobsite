@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const upload = require('multer')();
 
 const signup = require('./controllers/signup.js');
 const signin = require('./controllers/signin.js');
@@ -11,6 +12,6 @@ app.use(cors());
 app.use(express.json());
 app.post('/api/signup', signup);
 app.post('/api/signin', signin);
-app.patch('/api/user-profile', updateUser);
+app.patch('/api/user-profile', upload.any(), updateUser);
 
 module.exports = app;

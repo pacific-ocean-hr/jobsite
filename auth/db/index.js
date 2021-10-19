@@ -8,6 +8,7 @@ const userSchema = new Schema({
   password: String,
   email: String,
   role: String,
+  resume: Object,
 });
 
 const User = model("user", userSchema);
