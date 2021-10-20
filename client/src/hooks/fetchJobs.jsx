@@ -40,7 +40,7 @@ const fetchJobs = (params, page) => {
     const cancelToken = axios.CancelToken.source();
     dispatch({ type: ACTIONS.MAKE_REQUEST });
     axios
-      .get('http://localhost:4000/api/joblisting', {
+      .get('http://localhost:4002/api/joblisting', {
         cancelToken: cancelToken.token,
         params: {
           // category: 'Software Engineer',
