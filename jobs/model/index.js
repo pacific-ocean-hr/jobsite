@@ -38,7 +38,8 @@ const searchlisting = `with leveling as  (
                         )
                         select *
                         from final_query`
-const joblisting = 'select * from joblisting'
+const joblisting = `select * from joblisting OFFSET 0 ROWS
+FETCH FIRST 5 ROW ONLY;`
 
 module.exports = {
   getJoblistings: (query, callback) => {
@@ -78,7 +79,8 @@ module.exports = {
     combinedQuery = combinedQuery.concat(explevelQuery);
 
     const sqlQuery =
-      combinedQuery.length === 0 ?  joblisting : `${searchlisting} where ${combinedQuery};`;
+      combinedQuery.length === 0 ?  joblisting : `${searchlisting} where ${combinedQuery} OFFSET 0 ROWS
+      FETCH FIRST 5 ROW ONLY;`;
 
     pool.query(sqlQuery, (err, data) => {
       if (err) {

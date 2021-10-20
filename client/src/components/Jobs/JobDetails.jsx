@@ -17,7 +17,8 @@ const JobDetails = ({ job }) => {
           fill={heartColor}
           stroke='black'
           strokeWidth='20px'
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: 'pointer', paddingLeft: '10px' }}
+          id={job.title}
           onClick={onHeartClick}
         />
       </h2>
