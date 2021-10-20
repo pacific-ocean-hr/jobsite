@@ -54,7 +54,7 @@ const UserProfile = ({ user }) => {
             Email
             <Field>{user.email}</Field>
           </Label>
-          <Label>{`Resume: ${user.resume.originalname}`}</Label>
+          <Label>{'Resume: '}</Label>
           <Button type="button" onClick={() => setIsEditing(true)}>Edit</Button>
         </ProfileDiv>
         )}
@@ -71,7 +71,11 @@ UserProfile.propTypes = {
     resume: PropTypes.shape({
       originalname: PropTypes.string,
     }),
-  }).isRequired,
+  }),
+};
+
+UserProfile.defaultProps = {
+  user: {},
 };
 
 export default UserProfile;

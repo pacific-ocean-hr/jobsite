@@ -59,7 +59,7 @@ const ProfileEditForm = ({ user, setIsEditing }) => {
 
   const handleUpload = (e) => {
     const pdfFile = e.target.files[0];
-    const objUrl = window.URL.createObjectURL(pdfFile);
+    const objUrl = URL.createObjectURL(pdfFile);
     setPdf(objUrl);
     // URL.revokeObjectURL(objUrl);
     setResumeFile(pdfFile);
@@ -86,9 +86,7 @@ const ProfileEditForm = ({ user, setIsEditing }) => {
         <Input type="file" name="resume" onChange={handleUpload} value={resumeName} />
       </Label>
       <Input type="button" value="Cancel" onClick={() => setIsEditing(false)} />
-      <Input type="submit" value="Done" />
-
-      <PdfViewer srcdoc={!pdf ? '<p>Upload pdf file to view resume</p>' : ''} />
+      <Input type="submit" value="Save" />
     </ProfileForm>
   );
 };
@@ -100,7 +98,11 @@ ProfileEditForm.propTypes = {
     firstName: PropTypes.string,
     lastName: PropTypes.string,
     email: PropTypes.string,
-  }).isRequired,
+  }),
+};
+
+ProfileEditForm.defaultProps = {
+  user: {},
 };
 
 export default ProfileEditForm;
