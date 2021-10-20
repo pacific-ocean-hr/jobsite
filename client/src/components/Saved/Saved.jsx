@@ -34,31 +34,71 @@ const Saved = ({ user }) => {
   }, [user]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', columnGap: '20px' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        columnGap: '20px',
+      }}
+    >
       <div className="bigCard">
-      {user !== null &&
-      <div className="card" style={{ backgroundColor: '#E9EB9E', color: 'white' }}>
-          <h3>Interested</h3>
-          {saved.filter((item) => item.level === 'interested').map((savedItem) => {
-            return <div key={savedItem._id} className="card">{item}
-              <button type="button" onClick={() => removeSaved(savedItem._id)} className="mainButton">X</button>
-            </div>
-          })}
-        </div>}
+        {user !== null && (
+          <div
+            className="card"
+            style={{ backgroundColor: '#E9EB9E', color: 'white' }}
+          >
+            <h3>Interested</h3>
+            {saved
+              .filter((item) => item.level === 'interested')
+              .map((savedItem) => {
+                return (
+                  <div key={savedItem._id} className="card">
+                    {item}
+                    <button
+                      type="button"
+                      onClick={() => removeSaved(savedItem._id)}
+                      className="mainButton"
+                    >
+                      X
+                    </button>
+                  </div>
+                );
+              })}
+          </div>
+        )}
       </div>
       <div className="bigCard">
-      {user !== null &&
-      <div className="card" style={{ backgroundColor: '#ACC196', color: 'white' }}>
-          <h3>{user.role === 'seeker' ? 'Applied' : 'Very Interested'}</h3>
-          {saved.filter((item) => item.level === 'applied').map((item) => <div className="card">{item}</div>)}
-        </div>}
+        {user !== null && (
+          <div
+            className="card"
+            style={{ backgroundColor: '#ACC196', color: 'white' }}
+          >
+            <h3>{user.role === 'seeker' ? 'Applied' : 'Very Interested'}</h3>
+            {saved
+              .filter((item) => item.level === 'applied')
+              .map((item) => (
+                <div className="card">{item}</div>
+              ))}
+          </div>
+        )}
       </div>
       <div className="bigCard">
-      {user !== null &&
-      <div className="card" style={{ backgroundColor: '#799496', color: 'white' }}>
-          <h3>{user.role === 'seeker' ? 'Interviewed' : 'Extremely Interested'}</h3>
-          {saved.filter((item) => item.level === 'interviewed').map((item) => <div className="card">{item}</div>)}
-        </div>}
+        {user !== null && (
+          <div
+            className="card"
+            style={{ backgroundColor: '#799496', color: 'white' }}
+          >
+            <h3>
+              {user.role === 'seeker' ? 'Interviewed' : 'Extremely Interested'}
+            </h3>
+            {saved
+              .filter((item) => item.level === 'interviewed')
+              .map((item) => (
+                <div className="card">{item}</div>
+              ))}
+          </div>
+        )}
       </div>
     </div>
   );

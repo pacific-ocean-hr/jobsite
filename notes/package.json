@@ -4,16 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
     "start": "nodemon start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Bry",
+=======
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+>>>>>>> 057620612d10f65b59674d7954e508f6dfe65961
   "license": "ISC",
   "dependencies": {
     "axios": "^0.23.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^6.0.11",
+<<<<<<< HEAD
     "nodemon": "^2.0.13"
+=======
+    "nodemon": "^2.0.14"
+>>>>>>> 057620612d10f65b59674d7954e508f6dfe65961
   }
 }

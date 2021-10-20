@@ -1,26 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { ThemeProvider } from 'styled-components';
-import moment from 'moment';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 import jwt from 'jwt-decode';
-import { GlobalStyle, theme } from './Theme';
+import moment from 'moment';
+
 import Jobs from './components/Jobs/Jobs';
 import NavBar from './components/NavBar/NavBar';
 import Blog from './components/Blog/Blog';
 import Signup from './components/Auth/Signup';
 import Signin from './components/Auth/Signin';
+import UserProfile from './components/UserProfile/UserProfile';
+import CalendarView from './components/Calendar/Calendar';
 import Notes from './components/Notes/Notes';
 import Saved from './components/Saved/Saved';
-import CalendarView from './components/Calendar/Calendar';
+
+import { GlobalStyle, theme } from './Theme';
 
 const App = () => {
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     const token = document.cookie;
     if (token) {
       setUser(jwt(token.slice(6)));
     }
   }, [document.cookie]);
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -40,14 +45,17 @@ const App = () => {
             <Route exact path="/signin">
               <Signin setUser={setUser} />
             </Route>
+            <Route exact path="/profile">
+              <UserProfile user={user} />
+            </Route>
+            <Route exact path="/calendar">
+              <CalendarView />
+            </Route>
             <Route exact path="/notes">
               <Notes user={user} />
             </Route>
             <Route exact path="/saved">
               <Saved user={user} />
-            </Route>
-            <Route exact path="/calendar">
-              <CalendarView />
             </Route>
           </Switch>
         </Router>

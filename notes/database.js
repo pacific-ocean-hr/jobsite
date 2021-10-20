@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
 const notesSchema = new Schema({
@@ -8,6 +8,6 @@ const notesSchema = new Schema({
   created_at: Number,
 });
 
-const Note = model("note", notesSchema);
+const Note = model('note', notesSchema);
 
 module.exports = Note;
