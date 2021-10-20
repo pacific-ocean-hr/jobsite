@@ -40,9 +40,9 @@ function NavBar({ user }) {
             </div>
           )}
           {user !== null && <span>Welcome, {user.firstName}</span>}
-          {/* <NavLink to="/calendar" exact className="styled-link">
+          <NavLink to="/calendar" exact className="styled-link">
             Calendar
-          </NavLink> */}
+          </NavLink>
         </StyledLinks>
       </Nav>
     </Header>
