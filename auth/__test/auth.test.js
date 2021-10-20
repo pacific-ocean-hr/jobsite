@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const User = require("../../db/index.js");
+const User = require("../db/index.js");
 const request = require("supertest");
 const app = require("../app.js");
 const jwt = require("jwt-decode");
