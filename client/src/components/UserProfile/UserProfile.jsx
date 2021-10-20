@@ -33,6 +33,12 @@ const Button = styled.button`
   padding: 10px;
 `;
 
+const Link = styled.a`
+  color: dodgerblue;
+  padding: 3px 0;
+  text-decoration: none;
+`;
+
 const UserProfile = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -56,7 +62,7 @@ const UserProfile = ({ user }) => {
           </Label>
           <Label>
             Resume
-            <a rel="noreferrer" target="_blank" href={user.resume}>{user.resume ? 'Download Resume' : ''}</a>
+            <Link rel="noreferrer" target="_blank" href={user.resume}>{user.resume ? 'click to download' : ''}</Link>
           </Label>
           <Button type="button" onClick={() => setIsEditing(true)}>Edit</Button>
         </ProfileDiv>

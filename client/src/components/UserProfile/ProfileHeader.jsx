@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Header = styled.div`
   display: flex;
@@ -8,10 +9,12 @@ const Header = styled.div`
 const SectionTitle = styled.h3`
   flex: 1;
   margin: 0;
-  text-align: right;
 `;
 
 const AvatarImage = styled.div`
+  background-image: url('../../../dist/assets/profile.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
   border: 1px solid #bbb;
   border-radius: 3px;
   height: 150px;
@@ -21,9 +24,13 @@ const AvatarImage = styled.div`
 
 const ProfileHeader = ({ title }) => (
   <Header>
-    <AvatarImage>Image goes here</AvatarImage>
     <SectionTitle>{title}</SectionTitle>
+    <AvatarImage />
   </Header>
 );
+
+ProfileHeader.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default ProfileHeader;
