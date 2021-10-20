@@ -10,6 +10,7 @@ import Blog from './components/Blog/Blog';
 import Signup from './components/Auth/Signup';
 import Signin from './components/Auth/Signin';
 import Notes from './components/Notes/Notes';
+import Saved from './components/Saved/Saved';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -38,8 +39,11 @@ const App = () => {
             <Route exact path="/signin">
               <Signin setUser={setUser} />
             </Route>
-            <Route>
+            <Route exact path="/notes">
               <Notes user={user} />
+            </Route>
+            <Route exact path="/saved">
+              <Saved user={user} />
             </Route>
           </Switch>
         </Router>

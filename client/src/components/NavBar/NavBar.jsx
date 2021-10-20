@@ -40,9 +40,12 @@ function NavBar({ user }) {
             </div>
           )}
           {user !== null && (
-            <><span>Welcome, {user.firstName}</span>
+            <><NavLink to="/" exact className="styled-link" style={{ fontStyle: 'italic', color: '#49475B' }}>Welcome, {user.firstName}</NavLink>
               <NavLink to="/notes" exact className="styled-link">
                 Notes
+              </NavLink>
+              <NavLink to="/saved" exact className="styled-link">
+                Saved
               </NavLink>
             </>
           )}
