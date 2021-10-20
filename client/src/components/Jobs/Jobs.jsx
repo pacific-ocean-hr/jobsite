@@ -12,11 +12,11 @@ const Jobs = () => {
   const [currentJob, setCurrentJob] = useState(0);
   const { jobs } = fetchJobs(params, page);
 
-  const changeParams = (e) => {
-    const param = e.target.name;
-    const { value } = e.target;
-    setPage(1);
-    setParams((oldParams) => ({ ...oldParams, [param]: value }));
+  const changeParams = (param) => {
+    const newParams = { ...params };
+    const key = Object.keys(param)[0];
+    newParams[key] = param[key];
+    setParams(newParams);
   };
 
   return (
