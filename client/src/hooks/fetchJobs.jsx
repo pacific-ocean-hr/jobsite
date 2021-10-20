@@ -40,18 +40,18 @@ const fetchJobs = (params, page) => {
     const cancelToken = axios.CancelToken.source();
     dispatch({ type: ACTIONS.MAKE_REQUEST });
     axios
-      .get('https://www.themuse.com/api/public/jobs', {
+      .get('http://localhost:4000/api/joblisting', {
         cancelToken: cancelToken.token,
         params: {
-          category: 'Software Engineer',
-          page,
+          // category: 'Software Engineer',
+          // page,
           ...params,
         },
       })
       .then((res) => {
         dispatch({
           type: ACTIONS.GET_DATA,
-          payload: { jobs: Object.values(res.data.results) },
+          payload: { jobs: Object.values(res.data) },
         });
       })
       .catch((err) => {

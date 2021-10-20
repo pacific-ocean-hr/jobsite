@@ -47,6 +47,9 @@ function NavBar({ user }) {
               <NavLink to="/saved" exact className="styled-link">
                 Saved
               </NavLink>
+              <NavLink to="/calendar" exact className="styled-link">
+                Calendar
+              </NavLink>
             </>
           )}
         </StyledLinks>

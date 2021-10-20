@@ -19,9 +19,9 @@ const ViewBlog = ({ blogToView, backToBlogs }) => {
         </button>
         <div className="blog">
           <h1 className="title">{blogToView.title}</h1>
-          <img src={blogToView.url} alt="Could not load" />
-          <h4 className="author">By: Mock Author</h4>
-          <p className="body">{blogToView.body}</p>
+          <img src={blogToView.urlToImage} alt="Could not load" />
+          <h4 className="author">{blogToView.author}</h4>
+          <p className="body">{blogToView.content}</p>
         </div>
       </div>
     </BlogStyles>
