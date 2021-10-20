@@ -17,6 +17,6 @@ app.get('/api/jobs/github', cors(), async (req, res) => {
   res.send(data);
 });
 
-const port = 4000;
+const port = 4001;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));

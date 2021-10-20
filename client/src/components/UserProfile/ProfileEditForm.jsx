@@ -23,35 +23,25 @@ const Input = styled.input`
   padding: 10px;
 `;
 
-const PdfViewer = styled.iframe`
-  align-items: center;
-  background-color: 'gray';
-  display: flex;
-  height: 300px;
-  justify-content: center;
-  width: 300px;
-`;
-
 const ProfileEditForm = ({ user, setIsEditing }) => {
   const [firstName, setFirstName] = useState(user.firstName || '');
   const [lastName, setLastName] = useState(user.lastName || '');
   const [email, setEmail] = useState(user.email || '');
   const [resumeName, setResumeName] = useState('');
   const [resumeFile, setResumeFile] = useState(null);
-  const [pdf, setPdf] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const dataForm = new FormData();
     dataForm.append('file', resumeFile);
-    dataForm.set('_id', user.id);
+    dataForm.set('id', user.id);
     dataForm.set('firstName', firstName);
     dataForm.set('lastName', lastName);
     dataForm.set('email', email);
 
     axios.patch('http://localhost:4000/api/user-profile', dataForm)
-      .then(() => console.log('success'))
+      .then((response) => console.log(response.data))
       .catch((err) => console.log(err));
 
     setIsEditing(false);
@@ -59,15 +49,13 @@ const ProfileEditForm = ({ user, setIsEditing }) => {
 
   const handleUpload = (e) => {
     const pdfFile = e.target.files[0];
-    const objUrl = URL.createObjectURL(pdfFile);
-    setPdf(objUrl);
-    // URL.revokeObjectURL(objUrl);
+
     setResumeFile(pdfFile);
     setResumeName(e.target.value);
   };
 
   return (
-    <ProfileForm onSubmit={handleSubmit}>
+    <ProfileForm onSubmit={handleSubmit} enctype="multipart/form-data">
       <ProfileHeader title="Edit Profile" />
       <Label>
         First Name
@@ -83,7 +71,7 @@ const ProfileEditForm = ({ user, setIsEditing }) => {
       </Label>
       <Label>
         Upload Resume
-        <Input type="file" name="resume" onChange={handleUpload} value={resumeName} />
+        <Input type="file" accept="application/pdf" name="resume" onChange={handleUpload} value={resumeName} />
       </Label>
       <Input type="button" value="Cancel" onClick={() => setIsEditing(false)} />
       <Input type="submit" value="Save" />
@@ -98,11 +86,7 @@ ProfileEditForm.propTypes = {
     firstName: PropTypes.string,
     lastName: PropTypes.string,
     email: PropTypes.string,
-  }),
-};
-
-ProfileEditForm.defaultProps = {
-  user: {},
+  }).isRequired,
 };
 
 export default ProfileEditForm;

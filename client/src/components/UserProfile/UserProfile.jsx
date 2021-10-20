@@ -54,11 +54,15 @@ const UserProfile = ({ user }) => {
             Email
             <Field>{user.email}</Field>
           </Label>
-          <Label>{'Resume: '}</Label>
+          <Label>
+            Resume
+            <a rel="noreferrer" target="_blank" href={user.resume}>{user.resume ? 'Download Resume' : ''}</a>
+          </Label>
           <Button type="button" onClick={() => setIsEditing(true)}>Edit</Button>
         </ProfileDiv>
         )}
-      {isEditing && <ProfileEditForm setIsEditing={setIsEditing} user={user} />}
+      {isEditing
+        && <ProfileEditForm setIsEditing={setIsEditing} user={user} />}
     </ProfileContainer>
   );
 };
@@ -68,9 +72,7 @@ UserProfile.propTypes = {
     firstName: PropTypes.string,
     lastName: PropTypes.string,
     email: PropTypes.string,
-    resume: PropTypes.shape({
-      originalname: PropTypes.string,
-    }),
+    resume: PropTypes.string,
   }),
 };
 

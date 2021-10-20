@@ -1,4 +1,5 @@
 const express = require('express');
+const User = require('../db/index');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
