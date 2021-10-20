@@ -28,16 +28,12 @@ app.get('/photos', (req, res) => {
 
 app.get('/posts', (req, res) => {
   const options = {
-    url: 'https://jsonplaceholder.typicode.com/posts/?_limit=10',
+    url: 'https://newsapi.org/v2/everything?q=Apple&from=2021-10-20&sortBy=popularity&apiKey=b19f369c95f240108d831ce5fc9ab4a5',
     type: 'GET',
-    // data: {
-    //   Limit: 20,
-    //   page: 0,
-    // },
   };
   axios(options)
     .then((response) => {
-      res.status(200).send(response.data.slice(0, 5000));
+      res.status(200).send(response.data);
     })
     .catch((err) => {
       console.log(err);

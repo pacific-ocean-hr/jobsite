@@ -3,7 +3,7 @@ const { POSTGRES_USER, POSTGRES_PASSWORD } = require('../config.js');
 
 const pool = new Pool({
   user: POSTGRES_USER,
-  host: '127.0.0.1',
+  host: 'ec2-18-118-109-254.us-east-2.compute.amazonaws.com',
   database: 'joblisting',
   password: POSTGRES_PASSWORD,
   port: 5432,

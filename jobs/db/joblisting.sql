@@ -21,8 +21,8 @@ CREATE TABLE joblisting (
   isLiked boolean default false
 );
 
-COPY joblisting (job_id, url, title, company_name, category, job_type, publication_date, candidate_required_location, salary, description, company_logo_url, tags)
-FROM '/Users/jaylee/jobsite/jobs/db/data/response.csv'
+copy joblisting (job_id, url, title, company_name, category, job_type, publication_date, candidate_required_location, salary, description, company_logo_url, tags)
+FROM '/Users/jaylee/response2.csv'
 DELIMITER ','
 CSV HEADER;
 
