@@ -29,7 +29,7 @@ function NavBar({ user }) {
           />
         </NavLink>
         <StyledLinks>
-          {!user && (
+          {user === null && (
             <div>
               <NavLink to="/signup" exact className="styled-link">
                 Sign Up
@@ -39,19 +39,14 @@ function NavBar({ user }) {
               </NavLink>
             </div>
           )}
-
-          {user
-            && (
+          {user !== null && (
             <>
               <span>Welcome, {user.firstName}</span>
-              <NavLink to="/profile" exact className="styled-link">
-                Profile
+              <NavLink to="/calendar" exact className="styled-link">
+                {user.firstName} Calendar
               </NavLink>
             </>
-            )}
-          <NavLink to="/calendar" exact className="styled-link">
-            Calendar
-          </NavLink>
+          )}
         </StyledLinks>
       </Nav>
     </Header>
