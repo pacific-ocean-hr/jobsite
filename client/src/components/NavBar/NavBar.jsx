@@ -39,10 +39,19 @@ function NavBar({ user }) {
               </NavLink>
             </div>
           )}
-          {user !== null && <span>Welcome, {user.firstName}</span>}
-          <NavLink to="/calendar" exact className="styled-link">
-            Calendar
-          </NavLink>
+          {user !== null && (
+            <><NavLink to="/" exact className="styled-link" style={{ fontStyle: 'italic', color: '#49475B' }}>Welcome, {user.firstName}</NavLink>
+              <NavLink to="/notes" exact className="styled-link">
+                Notes
+              </NavLink>
+              <NavLink to="/saved" exact className="styled-link">
+                Saved
+              </NavLink>
+              <NavLink to="/calendar" exact className="styled-link">
+                Calendar
+              </NavLink>
+            </>
+          )}
         </StyledLinks>
       </Nav>
     </Header>

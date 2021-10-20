@@ -42,7 +42,7 @@ const JobListing = ({ listing, index, setCurrentJob, currentJobIndex }) => {
       <h6>
         Posted {moment(listing.publication_date).fromNow()}
         <a href={listing.url} target="_blank" rel="noreferrer">
-          <ApplyButton
+          <button
             className="mainButton"
             onMouseEnter={toggleHovered}
             onMouseLeave={toggleHovered}
@@ -51,7 +51,7 @@ const JobListing = ({ listing, index, setCurrentJob, currentJobIndex }) => {
             }}
           >
             Apply
-          </ApplyButton>
+          </button>
         </a>
       </h6>
     </Listing>
@@ -70,15 +70,15 @@ const Listing = styled.div`
   justify-content: space-between;
 `;
 
-const ApplyButton = styled.button`
-  padding: 8px;
-  background-color: #49475b;
-  color: white;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid gray;
-  font-family: Sans-serif;
-  justify-content: flex-end;
-`;
+// const ApplyButton = styled.button`
+//   padding: 8px;
+//   background-color: #49475b;
+//   color: white;
+//   font-size: 16px;
+//   border-radius: 5px;
+//   border: 1px solid gray;
+//   font-family: Sans-serif;
+//   justify-content: flex-end;
+// `;
 
 export default JobListing;

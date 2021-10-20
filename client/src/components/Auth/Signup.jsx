@@ -92,7 +92,6 @@ const Signup = ({ setUser }) => {
         <Title>
           <h1>Sign Up</h1>
           <h3>Welcome to JobSite</h3>
-          <h4>Connect people with jobs and jobs with people</h4>
         </Title>
         <FormInput
           onChange={(e) => {

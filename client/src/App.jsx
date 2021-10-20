@@ -9,6 +9,8 @@ import NavBar from './components/NavBar/NavBar';
 import Blog from './components/Blog/Blog';
 import Signup from './components/Auth/Signup';
 import Signin from './components/Auth/Signin';
+import Notes from './components/Notes/Notes';
+import Saved from './components/Saved/Saved';
 import CalendarView from './components/Calendar/Calendar';
 
 const App = () => {
@@ -37,6 +39,12 @@ const App = () => {
             </Route>
             <Route exact path="/signin">
               <Signin setUser={setUser} />
+            </Route>
+            <Route exact path="/notes">
+              <Notes user={user} />
+            </Route>
+            <Route exact path="/saved">
+              <Saved user={user} />
             </Route>
             <Route exact path="/calendar">
               <CalendarView />

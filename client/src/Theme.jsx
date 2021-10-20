@@ -17,6 +17,7 @@ export const GlobalStyle = createGlobalStyle`
   border-radius: 5px;
   border: 1px solid gray;
   float: right;
+  cursor: pointer;
   }
   .card {
   box-shadow: 0 4px 2px -2px gray;
