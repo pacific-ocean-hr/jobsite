@@ -1,7 +1,81 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { FaRegWindowClose } from 'react-icons/fa';
+
+const SearchBank = (key, item) => {
+  const searchBank = {
+    salary: {
+      '$10 - 50k': 1,
+      '$50 - 75k': 2,
+      '$75 - 100k': 3,
+      '$100k +': 4,
+    },
+    type: {
+      Contract: 'contract',
+      'Part-Time': 'part_time',
+      'Full-Time': 'full_time',
+      Internship: 'internship',
+      Freelance: 'freelance',
+    },
+    exp_level: {
+      Junior: 'junior',
+      Mid: 'mid',
+      Senior: 'senior',
+    },
+  };
+  return searchBank[key][item];
+};
 
 function SearchForm({ params, changeParams }) {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [salary, setSalary] = useState('');
+  const [jobType, setJobType] = useState('');
+  const [explevel, setExpLevel] = useState('');
+  const [isfilterActive, setIsFilterActive] = useState(false);
+
+  const onSearchInput = (e) => {
+    const { value } = e.target;
+
+    setSearchTerm(value);
+  };
+
+  const onSalaryFilter = async (e) => {
+    e.preventDefault();
+    const { value } = e.target;
+
+    setIsFilterActive(true);
+
+    const searchValue = await SearchBank('salary', value);
+    changeParams({ pay_band: searchValue });
+
+    setSalary(value);
+  };
+
+  const onJobTypeFilter = async (e) => {
+    e.preventDefault();
+    const { value } = e.target;
+
+    const searchValue = await SearchBank('type', value);
+    changeParams({ job_type: searchValue });
+
+    setJobType(value);
+  };
+
+  const onExpLevelFilter = async (e) => {
+    e.preventDefault();
+    const { value } = e.target;
+
+    const searchValue = await SearchBank('exp_level', value);
+    changeParams({ exp_level: searchValue });
+
+    setExpLevel(value);
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    changeParams({ search: searchTerm });
+  };
+
   return (
     <>
       <div
@@ -13,32 +87,70 @@ function SearchForm({ params, changeParams }) {
       </div>
       <Form action="">
         <div>
-          <Input type="text" placeholder="Enter Keyword" />
+          <Input
+            type="text"
+            value={searchTerm}
+            placeholder="Enter Keyword"
+            onChange={onSearchInput}
+          />
           &nbsp;&nbsp;
-          <button className="mainButton">Search Jobs</button>
+          <button
+            className="mainButton"
+            onClick={handleSearch}
+          >
+            Search Jobs
+          </button>
         </div>
       </Form>
       <Filters>
-        <FilterOptions>
-          <option value={0}>Salary</option>
-          <option value={1}> $10 - 50k </option>
-          <option value={2}> $50 - 75k </option>
-          <option value={3}> $75 - 100k </option>
-          <option value={4}> $100k + </option>
+        <FilterOptions
+          onChange={onSalaryFilter}
+        >
+          <option value="Salary">Salary</option>
+          <option value="$10 - 50k"> $10 - 50k </option>
+          <option value="$50 - 75k"> $50 - 75k </option>
+          <option value="$75 - 100k"> $75 - 100k </option>
+          <option value="$100k +"> $100k + </option>
         </FilterOptions>
-        <FilterOptions>
-          <option value={0}>Type</option>
-          <option value={1}> Contract </option>
-          <option value={2}> Part-Time </option>
-          <option value={2}> Full-Time </option>
+        <FilterOptions
+          onChange={onJobTypeFilter}
+        >
+          <option value="Type">Type</option>
+          <option value="Contract"> Contract </option>
+          <option value="Part-Time"> Part-Time </option>
+          <option value="Full-Time"> Full-Time </option>
+          <option value="Internship"> Internship </option>
+          <option value="Freelance"> Freelance </option>
         </FilterOptions>
-        <FilterOptions>
-          <option value={0}>Exp. Level</option>
-          <option value={1}>Junior</option>
-          <option value={2}>Mid</option>
-          <option value={3}>Senior</option>
+        <FilterOptions
+          name="explevel"
+          onChange={onExpLevelFilter}
+        >
+          <option value="Exp. Level">Exp. Level</option>
+          <option value="Junior">Junior</option>
+          <option value="Mid">Mid</option>
+          <option value="Senior">Senior</option>
         </FilterOptions>
       </Filters>
+      {salary && (
+      <SearchButton onClick={() => setSalary('')}>
+        <FaRegWindowClose style={{ paddingRight: 10 }} />
+        {' '}
+        {salary}
+      </SearchButton>
+      )}
+      {jobType && (
+      <SearchButton onClick={() => setJobType('')}>
+        <FaRegWindowClose style={{ paddingRight: 10 }} />
+        {jobType}
+      </SearchButton>
+      )}
+      {explevel && (
+      <SearchButton onClick={() => setExpLevel('')}>
+        <FaRegWindowClose style={{ paddingRight: 10 }} />
+        {explevel}
+      </SearchButton>
+      )}
     </>
   );
 }
@@ -71,6 +183,15 @@ const Filters = styled.div`
   flex-wrap: nowrap;
   margin-top: 10px;
   margin-right: 95px;
+`;
+
+const SearchButton = styled.button`
+  display: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 10%;
 `;
 
 export default SearchForm;

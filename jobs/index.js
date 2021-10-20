@@ -1,22 +1,16 @@
 const express = require('express');
 const cors = require('cors');
-const axios = require('axios');
+const compression = require('compression');
+// const axios = require('axios');
+
+const { handleJoblisting } = require('./controller');
 
 const app = express();
+const port = 4002;
 app.use(express.json());
+app.use(compression());
 app.use(cors());
 
-app.get('/api/jobs/github', cors(), async (req, res) => {
-  console.log(req);
-  const data = await axios
-    .get('https://www.themuse.com/api/public/jobs', {
-      params: req.body.data,
-    })
-    .catch((err) => console.log('Error'));
-  console.log(data);
-  res.send(data);
-});
+app.get('/api/joblisting', cors(), handleJoblisting);
 
-const port = 4001;
-
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(port, () => console.log(`Listening at http://localhost:${port}`));

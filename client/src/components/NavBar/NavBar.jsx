@@ -39,6 +39,7 @@ function NavBar({ user }) {
               </NavLink>
             </div>
           )}
+
           {user
             && (
             <>
@@ -48,6 +49,9 @@ function NavBar({ user }) {
               </NavLink>
             </>
             )}
+          <NavLink to="/calendar" exact className="styled-link">
+            Calendar
+          </NavLink>
         </StyledLinks>
       </Nav>
     </Header>

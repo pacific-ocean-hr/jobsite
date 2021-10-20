@@ -10,6 +10,7 @@ import Blog from './components/Blog/Blog';
 import Signup from './components/Auth/Signup';
 import Signin from './components/Auth/Signin';
 import UserProfile from './components/UserProfile/UserProfile';
+import CalendarView from './components/Calendar/Calendar';
 
 import { GlobalStyle, theme } from './Theme';
 
@@ -44,6 +45,9 @@ const App = () => {
             </Route>
             <Route exact path="/profile">
               <UserProfile user={user} />
+            </Route>
+            <Route exact path="/calendar">
+              <CalendarView />
             </Route>
           </Switch>
         </Router>
