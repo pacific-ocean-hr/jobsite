@@ -9,6 +9,7 @@ import NavBar from './components/NavBar/NavBar';
 import Blog from './components/Blog/Blog';
 import Signup from './components/Auth/Signup';
 import Signin from './components/Auth/Signin';
+import Notes from './components/Notes/Notes';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -36,6 +37,9 @@ const App = () => {
             </Route>
             <Route exact path="/signin">
               <Signin setUser={setUser} />
+            </Route>
+            <Route>
+              <Notes user={user} />
             </Route>
           </Switch>
         </Router>

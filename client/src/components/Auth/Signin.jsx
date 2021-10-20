@@ -88,7 +88,6 @@ const Signin = ({ setUser }) => {
         <Title>
           <h1>Sign In</h1>
           <h3>Welcome back to JobSite</h3>
-          <h4>Connect people with jobs and jobs with people</h4>
         </Title>
         <NavLink to="/signup">Create New Account?</NavLink>
         <FormInput>
