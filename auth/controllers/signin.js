@@ -12,7 +12,6 @@ const signin = async (req, res) => {
     const password = await response[0].password;
     const bool = await bcrypt.compare(req.body.password, password);
     if (bool) {
-      console.log(response[0]);
       const { _id, firstName, lastName, email, role, resume } = response[0];
       const user = {
         id: _id,
@@ -22,7 +21,6 @@ const signin = async (req, res) => {
         role,
         resume,
       };
-      console.log('user', user);
       jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, (err, token) => {
         res.send(token);
       });
