@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
@@ -38,12 +39,10 @@ function NavBar({ user }) {
               </NavLink>
             </div>
           )}
-          {user !== null && (
-            <span>
-              Welcome,
-              {user.firstName}
-            </span>
-          )}
+          {user !== null && <span>Welcome, {user.firstName}</span>}
+          <NavLink to="/calendar" exact className="styled-link">
+            Calendar
+          </NavLink>
         </StyledLinks>
       </Nav>
     </Header>

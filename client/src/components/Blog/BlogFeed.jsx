@@ -1,42 +1,65 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
 
-export const BlogStyles = styled.div`
+const BlogStyles = styled.div`
   margin: auto;
-  width: 50%;
+  width: 80%;
+  margin-top: 50px;
+`;
+
+const BlogItems = styled.div`
+border: solid 2px black;
+margin-top: 25px
+`;
+
+const Title = styled.div`
+position: relative;
+padding-left: 275px
+`;
+
+const Author = styled.div`
+position: relative;
+padding-left: 275px
 `;
 
 const BlogFeed = ({ focusBlog, blogs, photos }) => {
-  const handleBlogClick = (post, photo) => {
-    focusBlog(post, photo);
+  const handleBlogClick = (blog) => {
+    focusBlog(blog);
   };
 
   return (
     <BlogStyles>
       <div className="blogFeed">
         {blogs.map((blog) => {
-          const { id, title, body } = blog;
+          const {
+            author,
+            title,
+            urlToImage,
+            content,
+          } = blog;
           return (
-            <div className="blog" key={id}>
-              <h1 className="title">{title}</h1>
-              {photos.map((photo) => {
-                const { url } = photo;
-                const photoId = photo.id;
-                return (
-                  // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-                  <img
-                    src={url}
-                    key={photoId}
-                    alt="Could not load"
-                    onClick={handleBlogClick}
-                  />
-                );
-              })}
-              <h4 className="author">By: Mock Author</h4>
-              <p className="body">{body}</p>
-            </div>
+            <BlogItems>
+              <div className="blog" key={blog.source.id}>
+                <Title>
+                  <h2 className="title" onClick={() => handleBlogClick(blog)}>{title}</h2>
+                </Title>
+                <img
+                  src={urlToImage}
+                  alt="Could not load"
+                  onClick={() => handleBlogClick(blog)}
+                  width="600px"
+                  height="600px"
+                />
+
+                <Author>
+                  <h4 className="author">{author}</h4>
+                </Author>
+                <p className="body">{content}</p>
+              </div>
+            </BlogItems>
           );
         })}
       </div>
