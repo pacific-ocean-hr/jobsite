@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 const axios = require('axios');
 
 const Saved = ({ user }) => {
-  const [edit, setEdit] = useState(false);
   const [saved, setSaved] = useState([]);
 
   const getSaved = () => {
@@ -37,26 +36,29 @@ const Saved = ({ user }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', columnGap: '20px' }}>
       <div className="bigCard">
-        <div className="card" style={{ backgroundColor: '#E9EB9E', color: 'white' }}>
+      {user !== null &&
+      <div className="card" style={{ backgroundColor: '#E9EB9E', color: 'white' }}>
           <h3>Interested</h3>
           {saved.filter((item) => item.level === 'interested').map((savedItem) => {
             return <div key={savedItem._id} className="card">{item}
-              <button type="button" onClick={() => removeSaved(savedItem._id)} className="mainButton">Remove</button>
+              <button type="button" onClick={() => removeSaved(savedItem._id)} className="mainButton">X</button>
             </div>
           })}
-        </div>
+        </div>}
       </div>
       <div className="bigCard">
-        <div className="card" style={{ backgroundColor: '#ACC196', color: 'white' }}>
-          <h3>Applied </h3>
+      {user !== null &&
+      <div className="card" style={{ backgroundColor: '#ACC196', color: 'white' }}>
+          <h3>{user.role === 'seeker' ? 'Applied' : 'Very Interested'}</h3>
           {saved.filter((item) => item.level === 'applied').map((item) => <div className="card">{item}</div>)}
-        </div>
+        </div>}
       </div>
       <div className="bigCard">
-        <div className="card" style={{ backgroundColor: '#799496', color: 'white' }}>
-          <h3>Interviewed</h3>
+      {user !== null &&
+      <div className="card" style={{ backgroundColor: '#799496', color: 'white' }}>
+          <h3>{user.role === 'seeker' ? 'Interviewed' : 'Extremely Interested'}</h3>
           {saved.filter((item) => item.level === 'interviewed').map((item) => <div className="card">{item}</div>)}
-        </div>
+        </div>}
       </div>
     </div>
   );
