@@ -12,7 +12,7 @@ const SectionTitle = styled.h3`
 `;
 
 const AvatarImage = styled.div`
-  background-image: url('../../../dist/assets/profile.jpeg');
+  background-image: url('../assets/profile.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
   border: 1px solid #bbb;
