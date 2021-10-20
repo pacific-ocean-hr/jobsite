@@ -42,8 +42,14 @@ function NavBar({ user }) {
           {user !== null && (
             <>
               <span>Welcome, {user.firstName}</span>
+              <NavLink to="/notes" exact className="styled-link">
+                Notes
+              </NavLink>
+              <NavLink to="/saved" exact className="styled-link">
+                Saved
+              </NavLink>
               <NavLink to="/calendar" exact className="styled-link">
-                {user.firstName} Calendar
+                Calendar
               </NavLink>
             </>
           )}

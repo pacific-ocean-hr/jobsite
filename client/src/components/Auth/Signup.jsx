@@ -47,7 +47,7 @@ const Button = styled.button`
   background-color: ${(props) => `${props.theme.color.teal}`};
   color: ${(props) => `${props.theme.color.white}`};
   border: ${(props) => `1px solid ${props.theme.color.green}`};
-  text-decoration: "none";
+  text-decoration: 'none';
   padding: 5px 40px;
 `;
 
@@ -92,7 +92,6 @@ const Signup = ({ setUser }) => {
         <Title>
           <h1>Sign Up</h1>
           <h3>Welcome to JobSite</h3>
-          <h4>Connect people with jobs and jobs with people</h4>
         </Title>
         <FormInput
           onChange={(e) => {
