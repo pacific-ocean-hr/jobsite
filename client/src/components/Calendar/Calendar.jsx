@@ -12,9 +12,13 @@ const CalendarView = () => {
 
   const handleDayClick = (day) => {
     const currentDate = day.toLocaleDateString();
-
-    setTask(CalendarData[currentDate]);
-    setIsTask(true);
+    const data = CalendarData[currentDate];
+    if (data) {
+      setTask(data);
+      setIsTask(true);
+    } else {
+      setIsTask(false);
+    }
   };
 
   return (
@@ -22,11 +26,9 @@ const CalendarView = () => {
       <Calendar>
         <JobCalendar handleDayClick={handleDayClick} />
       </Calendar>
-      {isTask
-      && (
-      <Tasks>
-        {
-          tasks.map((task, index) => (
+      {isTask ? (
+        <Tasks>
+          {tasks.map((task, index) => (
             <CalendarTask
               currentJobIndex={currentJob}
               key={task.task.concat(index)}
@@ -34,9 +36,10 @@ const CalendarView = () => {
               index={index}
               setCurrentJob={setCurrentJob}
             />
-          ))
-        }
-      </Tasks>
+          ))}
+        </Tasks>
+      ) : (
+        <NoEvents>No Events Today!</NoEvents>
       )}
     </CalendarContainer>
   );
@@ -58,8 +61,15 @@ const CalendarContainer = styles.div`
 const Calendar = styles.div`
   margin-top: auto;
   margin-bottom: auto;
+  margin-left: 30%;
 `;
 
 const Tasks = styles.div`
   background-color: #f2f2f2;
+  margin-right: 40%;
+`;
+
+const NoEvents = styles.h2`
+  margin-top: auto;
+  margin-bottom: auto;
 `;
