@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import ProfileEditForm from './ProfileEditForm';
 import ProfileHeader from './ProfileHeader';
@@ -53,15 +54,24 @@ const UserProfile = ({ user }) => {
             Email
             <Field>{user.email}</Field>
           </Label>
-          <Label>
-            Resume: {user.resume}
-          </Label>
+          <Label>{`Resume: ${user.resume.originalname}`}</Label>
           <Button type="button" onClick={() => setIsEditing(true)}>Edit</Button>
         </ProfileDiv>
         )}
       {isEditing && <ProfileEditForm setIsEditing={setIsEditing} user={user} />}
     </ProfileContainer>
   );
+};
+
+UserProfile.propTypes = {
+  user: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    email: PropTypes.string,
+    resume: PropTypes.shape({
+      originalname: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default UserProfile;

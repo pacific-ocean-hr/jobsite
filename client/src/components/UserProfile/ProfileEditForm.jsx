@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -22,19 +23,29 @@ const Input = styled.input`
   padding: 10px;
 `;
 
+const PdfViewer = styled.iframe`
+  align-items: center;
+  background-color: 'gray';
+  display: flex;
+  height: 300px;
+  justify-content: center;
+  width: 300px;
+`;
+
 const ProfileEditForm = ({ user, setIsEditing }) => {
   const [firstName, setFirstName] = useState(user.firstName || '');
   const [lastName, setLastName] = useState(user.lastName || '');
   const [email, setEmail] = useState(user.email || '');
   const [resumeName, setResumeName] = useState('');
-  const [resumeFile, setResumeFile] = useState({});
+  const [resumeFile, setResumeFile] = useState(null);
+  const [pdf, setPdf] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const dataForm = new FormData();
     dataForm.append('file', resumeFile);
-    dataForm.set('id', user.id);
+    dataForm.set('_id', user.id);
     dataForm.set('firstName', firstName);
     dataForm.set('lastName', lastName);
     dataForm.set('email', email);
@@ -47,7 +58,11 @@ const ProfileEditForm = ({ user, setIsEditing }) => {
   };
 
   const handleUpload = (e) => {
-    setResumeFile(e.target.files[0]);
+    const pdfFile = e.target.files[0];
+    const objUrl = window.URL.createObjectURL(pdfFile);
+    setPdf(objUrl);
+    // URL.revokeObjectURL(objUrl);
+    setResumeFile(pdfFile);
     setResumeName(e.target.value);
   };
 
@@ -72,8 +87,20 @@ const ProfileEditForm = ({ user, setIsEditing }) => {
       </Label>
       <Input type="button" value="Cancel" onClick={() => setIsEditing(false)} />
       <Input type="submit" value="Done" />
+
+      <PdfViewer srcdoc={!pdf ? '<p>Upload pdf file to view resume</p>' : ''} />
     </ProfileForm>
   );
+};
+
+ProfileEditForm.propTypes = {
+  setIsEditing: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    email: PropTypes.string,
+  }).isRequired,
 };
 
 export default ProfileEditForm;
