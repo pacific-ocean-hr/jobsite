@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import fetchJobs from '../../hooks/fetchJobs';
 import JobListing from './JobListing';
@@ -7,10 +7,10 @@ import Pagination from './Pagination';
 import SearchForm from './SearchForm';
 
 const Jobs = () => {
+  const { jobs, hasData } = fetchJobs(params, page);
   const [params, setParams] = useState({});
   const [page, setPage] = useState(1);
   const [currentJob, setCurrentJob] = useState(0);
-  const { jobs } = fetchJobs(params, page);
 
   const changeParams = (param) => {
     const newParams = { ...params };
@@ -21,7 +21,7 @@ const Jobs = () => {
 
   return (
     <div>
-      <SearchForm params={params} changeParams={changeParams} />
+      <SearchForm params={params} changeParams={changeParams} hasData={hasData} />
       <JobPage>
         <div>
           <Pagination page={page} setPage={setPage} />

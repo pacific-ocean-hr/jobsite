@@ -7,15 +7,18 @@ const ACTIONS = {
   ERROR: 'error',
 };
 
+let hasData = true;
+
 const reducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.MAKE_REQUEST:
-      return { loading: true, jobs: [] };
+      return { loading: true, jobs: [], hasData: true };
     case ACTIONS.GET_DATA:
       return {
         ...state,
         loading: false,
         jobs: action.payload.jobs.slice(0, 5),
+        hasData,
       };
     case ACTIONS.ERROR:
       return {
@@ -34,13 +37,14 @@ const fetchJobs = (params, page) => {
     jobs: [],
     loading: true,
     error: false,
+    hasData: true,
   });
 
   useEffect(() => {
     const cancelToken = axios.CancelToken.source();
     dispatch({ type: ACTIONS.MAKE_REQUEST });
     axios
-      .get('http://localhost:4000/api/joblisting', {
+      .get('http://18.118.109.254/api/joblisting', {
         cancelToken: cancelToken.token,
         params: {
           // category: 'Software Engineer',
@@ -49,10 +53,20 @@ const fetchJobs = (params, page) => {
         },
       })
       .then((res) => {
-        dispatch({
-          type: ACTIONS.GET_DATA,
-          payload: { jobs: Object.values(res.data) },
-        });
+        const dataLength = res.data.length;
+        if (dataLength !== 0) {
+          hasData = true;
+          dispatch({
+            type: ACTIONS.GET_DATA,
+            payload: { jobs: Object.values(res.data), hasData },
+          });
+        } else {
+          hasData = false;
+          dispatch({
+            type: ACTIONS.GET_DATA,
+            payload: { jobs: state.jobs, hasData },
+          });
+        }
       })
       .catch((err) => {
         if (axios.isCancel(err)) return;
