@@ -40,7 +40,15 @@ function NavBar({ user }) {
             </div>
           )}
           {user !== null && (
-            <><NavLink to="/" exact className="styled-link" style={{ fontStyle: 'italic', color: '#49475B' }}>Welcome, {user.firstName}</NavLink>
+            <>
+              <NavLink
+                to="/"
+                exact
+                className="styled-link"
+                style={{ fontStyle: 'italic', color: '#49475B' }}
+              >
+                Welcome, {user.firstName}
+              </NavLink>
               <NavLink to="/notes" exact className="styled-link">
                 Notes
               </NavLink>
@@ -88,6 +96,7 @@ const StyledLinks = styled.div`
     }
   }
 `;
+
 NavBar.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.string,
