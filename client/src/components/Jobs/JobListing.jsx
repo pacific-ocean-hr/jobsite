@@ -37,11 +37,11 @@ const JobListing = ({ listing, index, setCurrentJob, currentJobIndex }) => {
           src="../assets/Novartis.png"
           style={{ maxHeight: '40px', maxWidth: '40px' }}
         />
-        &nbsp;&nbsp;{listing.company.name}: {listing.name}
+        &nbsp;&nbsp;{listing.company_name}: {listing.title}
       </h3>
       <h6>
         Posted {moment(listing.publication_date).fromNow()}
-        <a href={listing.refs.landing_page} target="_blank" rel="noreferrer">
+        <a href={listing.url} target="_blank" rel="noreferrer">
           <ApplyButton
             className="mainButton"
             onMouseEnter={toggleHovered}
