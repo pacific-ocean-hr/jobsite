@@ -9,6 +9,10 @@ export const GlobalStyle = createGlobalStyle`
   * {
   font-family:${({ theme }) => theme.fontFamily};
   }
+  .App {
+    margin: 0 auto;
+    max-width: 1280px;
+  }
   .mainButton {
     padding: 7px;
   background-color: #49475B;
