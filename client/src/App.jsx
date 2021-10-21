@@ -11,6 +11,8 @@ import Signup from './components/Auth/Signup';
 import Signin from './components/Auth/Signin';
 import UserProfile from './components/UserProfile/UserProfile';
 import CalendarView from './components/Calendar/Calendar';
+import Notes from './components/Notes/Notes';
+import Saved from './components/Saved/Saved';
 
 import { GlobalStyle, theme } from './Theme';
 
@@ -48,6 +50,12 @@ const App = () => {
             </Route>
             <Route exact path="/calendar">
               <CalendarView />
+            </Route>
+            <Route exact path="/notes">
+              <Notes user={user} />
+            </Route>
+            <Route exact path="/saved">
+              <Saved user={user} />
             </Route>
           </Switch>
         </Router>
