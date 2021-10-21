@@ -7,15 +7,18 @@ const ACTIONS = {
   ERROR: 'error',
 };
 
+let hasData = true;
+
 const reducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.MAKE_REQUEST:
-      return { loading: true, jobs: [] };
+      return { loading: true, jobs: [], hasData: true };
     case ACTIONS.GET_DATA:
       return {
         ...state,
         loading: false,
         jobs: action.payload.jobs.slice(0, 5),
+        hasData,
       };
     case ACTIONS.ERROR:
       return {
@@ -34,6 +37,7 @@ const fetchJobs = (params, page) => {
     jobs: [],
     loading: true,
     error: false,
+    hasData: true,
   });
 
   useEffect(() => {
@@ -44,15 +48,25 @@ const fetchJobs = (params, page) => {
         cancelToken: cancelToken.token,
         params: {
           // category: 'Software Engineer',
-          // page,
+          page,
           ...params,
         },
       })
       .then((res) => {
-        dispatch({
-          type: ACTIONS.GET_DATA,
-          payload: { jobs: Object.values(res.data) },
-        });
+        const dataLength = res.data.length;
+        if (dataLength !== 0) {
+          hasData = true;
+          dispatch({
+            type: ACTIONS.GET_DATA,
+            payload: { jobs: Object.values(res.data), hasData },
+          });
+        } else {
+          hasData = false;
+          dispatch({
+            type: ACTIONS.GET_DATA,
+            payload: { jobs: state.jobs, hasData },
+          });
+        }
       })
       .catch((err) => {
         if (axios.isCancel(err)) return;

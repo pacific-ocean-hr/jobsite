@@ -36,12 +36,17 @@ const searchlisting = `with leveling as  (
                         on jl.job_id = l.job_id
                         )
                         select *
-                        from final_query`;
-const joblisting = 'select * from joblisting';
+                        from final_query
+                        `;
+const joblisting = `select *
+                    from joblisting
+                    order by id asc
+                    OFFSET $1 ROWS
+                    FETCH NEXT 10 ROWS ONLY;`;
 
 module.exports = {
   getJoblistings: (query, callback) => {
-    const { search, pay_band, job_type, exp_level } = query;
+    const { search, page, pay_band, job_type, exp_level } = query;
     let combinedQuery = '';
 
     const searchQuery = !!search
@@ -79,9 +84,13 @@ module.exports = {
     const sqlQuery =
       combinedQuery.length === 0
         ? joblisting
-        : `${searchlisting} where ${combinedQuery};`;
+        : `${searchlisting}
+           where ${combinedQuery}
+           ORDER BY id ASC
+           OFFSET $1 ROWS
+           FETCH NEXT 10 ROWS ONLY;;`;
 
-    pool.query(sqlQuery, (err, data) => {
+    pool.query(sqlQuery, [page - 1], (err, data) => {
       if (err) {
         callback(err);
       } else {
