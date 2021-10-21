@@ -1,82 +1,18 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-// import logo from '../../../dist/assets/logo.png';
-
-function NavBar({ user }) {
-  return (
-    <Header>
-      <Nav>
-        <StyledLinks>
-          <NavLink to="/" exact className="styled-link">
-            Jobs
-          </NavLink>
-          <NavLink to="/blog" exact className="styled-link">
-            Blog
-          </NavLink>
-        </StyledLinks>
-        <NavLink
-          to="/"
-          exact
-          style={{ textDecoration: 'none', color: 'black', fontSize: '2em' }}
-        >
-          <img
-            src="./assets/logo.png"
-            alt="JobSite"
-            style={{ maxHeight: '70px', maxWidth: '150px' }}
-          />
-        </NavLink>
-        <StyledLinks>
-          {user === null && (
-            <div>
-              <NavLink to="/signup" exact className="styled-link">
-                Sign Up
-              </NavLink>
-              <NavLink to="/signin" exact className="styled-link">
-                <b>Sign In</b>
-              </NavLink>
-            </div>
-          )}
-          {user !== null && (
-            <>
-              <span>Welcome, {user.firstName}</span>
-              <NavLink to="/notes" exact className="styled-link">
-                Notes
-              </NavLink>
-              <NavLink to="/saved" exact className="styled-link">
-                Saved
-              </NavLink>
-              <NavLink to="/calendar" exact className="styled-link">
-                Calendar
-              </NavLink>
-            </>
-          )}
-        </StyledLinks>
-      </Nav>
-    </Header>
-  );
-}
-
-const Header = styled.header`
-  padding: 0px;
-  margin-bottom: 12px;
-  font-family: Sans-serif;
-`;
+import { FaRegUserCircle } from 'react-icons/fa';
 
 const Nav = styled.nav`
-  margin: auto;
-  padding: 2px 0 3px;
   display: flex;
   align-items: center;
-  position: relative;
-  justify-content: space-around;
-  flex-wrap: nowrap;
   border-bottom: solid thin #f2f2f2;
 `;
 
 const StyledLinks = styled.div`
+  flex: 1;
   .styled-link {
     font-size: 1em;
     padding: 10px 12px;
@@ -89,6 +25,95 @@ const StyledLinks = styled.div`
     }
   }
 `;
+
+const Logo = styled.a`
+  height: 60px;
+  .logo-image {
+    height: 60px;
+  }
+`;
+
+const NavDropdown = styled.ul`
+  background-color: #eee;
+  color: rgba(0, 0, 0, .6);
+  display: ${(props) => props.isVisible};
+  list-style: none;
+  margin: 0;
+  padding: 12px;
+  width: 250px;
+  li {
+    padding: 6px;
+    &:hover {
+      background-color: #bbb;
+      a {
+        color: #fff;
+      }
+      button {
+        color: #fff;
+      }
+    }
+  }
+  a {
+    color: rgba(0, 0, 0, .6);
+    text-decoration: none;
+  }
+  button {
+    background-color: transparent;
+    border: none;
+    color: rgba(0, 0, 0, .6);
+    font-size: 1em;
+    padding: 0;
+    margin: 0;
+  }
+`;
+
+function NavBar({ user }) {
+  const [isVisible, setIsVisible] = useState(true);
+
+  const handleSignout = () => {
+    // remove cookie
+    console.log('signing out');
+  };
+
+  return (
+    <Nav>
+      {/* left side nav links */}
+      <StyledLinks>
+        <NavLink to="/" exact className="styled-link">Home</NavLink>
+        <NavLink to="/blog" exact className="styled-link">Blog</NavLink>
+      </StyledLinks>
+      {/* centered logo */}
+      <Logo>
+        <img className="logo-image" src="./assets/logo.png" alt="JobSite" />
+      </Logo>
+      {/* right side nav links */}
+      <StyledLinks>
+        {/* user is not signed in */}
+        {!user && (
+          <>
+            <NavLink to="/signup" exact className="styled-link">Sign Up</NavLink>
+            <NavLink to="/signin" exact className="styled-link">Sign In</NavLink>
+          </>
+        )}
+        {/* user is signed in */}
+        {user && (
+          <>
+            <span>Welcome, {user.firstName}</span>
+            <FaRegUserCircle size={24} className="styled-link" onClick={() => setIsVisible(!isVisible)} />
+            <NavDropdown isVisible={isVisible ? 'block' : 'none'}>
+              <li><NavLink to="/user-profile" exact>Profile</NavLink></li>
+              <li><NavLink to="/notes" exact>Notes</NavLink></li>
+              <li><NavLink to="/saved" exact>Saved</NavLink></li>
+              <li><NavLink to="/calendar" exact>Calendar</NavLink></li>
+              <li><button type="button" onClick={handleSignout}>Sign Out</button></li>
+            </NavDropdown>
+          </>
+        )}
+      </StyledLinks>
+    </Nav>
+  );
+}
+
 NavBar.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.string,
