@@ -1,9 +1,11 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { FaRegUserCircle } from 'react-icons/fa';
+
+import Cookies from 'js-cookie';
 
 const Nav = styled.nav`
   display: flex;
@@ -19,6 +21,7 @@ const StyledLinks = styled.div`
     text-decoration: none;
     border-radius: 4px;
     color: rgba(0, 0, 0, 0.6);
+    cursor: pointer;
     &:hover {
       background-color: rgba(0, 0, 0, 0.08);
       color: rgba(0.9);
@@ -30,10 +33,14 @@ const StyledLinks = styled.div`
     justify-content: right;
     position: relative;
     text-align: right;
+  },
+  .greeting {
+    color: rgba(0, 0, 0, .6);
   }
 `;
 
 const Logo = styled.a`
+  cursor: pointer;
   height: 60px;
   .logo-image {
     height: 60px;
@@ -55,6 +62,7 @@ const NavDropdown = styled.ul`
   top: 50px;
   width: fit-content;
   li {
+    cursor: pointer;
     padding: 6px;
     &:hover {
       background-color: #bbb;
@@ -81,11 +89,14 @@ const NavDropdown = styled.ul`
 `;
 
 function NavBar({ user }) {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
-  const handleSignout = () => {
+  const handleSignout = (e) => {
+    e.preventDefault();
     // remove cookie
-    console.log('signing out');
+    Cookies.remove('token');
+    // reload page
+    window.location.reload();
   };
 
   return (
@@ -97,7 +108,7 @@ function NavBar({ user }) {
       </StyledLinks>
       {/* centered logo */}
       <Logo>
-        <img className="logo-image" src="./assets/logo.png" alt="JobSite" />
+        <img href="/" className="logo-image" src="./assets/logo.png" alt="JobSite" />
       </Logo>
       {/* right side nav links */}
       <StyledLinks className="right-nav">
@@ -111,14 +122,14 @@ function NavBar({ user }) {
         {/* user is signed in */}
         {user && (
           <>
-            <span>Welcome, {user.firstName}</span>
+            <span className="greeting">Welcome, {user.firstName}</span>
             <FaRegUserCircle size={24} className="styled-link" onClick={() => setIsVisible(!isVisible)} />
-            <NavDropdown isVisible={isVisible ? 'block' : 'none'}>
+            <NavDropdown onClick={() => setIsVisible(false)} isVisible={isVisible ? 'block' : 'none'}>
               <li><NavLink to="/profile" exact>Profile</NavLink></li>
               <li><NavLink to="/notes" exact>Notes</NavLink></li>
               <li><NavLink to="/saved" exact>Saved</NavLink></li>
               <li><NavLink to="/calendar" exact>Calendar</NavLink></li>
-              <li><button type="button" onClick={handleSignout}>Sign Out</button></li>
+              <li><a href="/" onClick={handleSignout}>Sign Out</a></li>
             </NavDropdown>
           </>
         )}
