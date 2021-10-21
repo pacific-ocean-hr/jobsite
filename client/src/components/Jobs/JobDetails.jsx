@@ -32,7 +32,7 @@ const JobDetails = ({
       <h2>
         {job.title}
         <FaHeart
-          fill={heartColor?'pink':'white'}
+          fill={heartColor}
           stroke="black"
           strokeWidth="20px"
           style={{ cursor: 'pointer' }}

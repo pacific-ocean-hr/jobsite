@@ -12,7 +12,7 @@ const Jobs = ({ user }) => {
   const [params, setParams] = useState({});
   const [page, setPage] = useState(1);
   const [currentJob, setCurrentJob] = useState(0);
-  const [heart, setHeart] = useState(null);
+  const [heartColor, setHeartColor] = useState('white');
   const [saveJob, setSaveJob] = useState([]);
 
   const { jobs } = fetchJobs(params, page);
@@ -30,19 +30,19 @@ const Jobs = ({ user }) => {
       const response = await axios.get(
         `http://localhost:4008/saved/id/${user.id}`
       );
-      // await setSaveJob(response.data);
-      // let color = false;
+      await setSaveJob(response.data);
+      let color = false;
       console.log("saveJob", saveJob, response.data);
       const fav = response.data
         .map((item) => item.job_id)
         .filter((id) => id === jobs[currentJob].job_id);
       console.log("pinkHeart", fav);
-      // if (fav.length > 0) {
-      //   color = true;
-      // }
-      setHeart(fav);
+      if (fav.length > 0) {
+        color = true;
+      }
+      setHeartColor(color?"pink":"white");
     }
-  }, [heart,currentJob]);
+  }, [currentJob]);
 
   return (
     <div>
@@ -60,7 +60,6 @@ const Jobs = ({ user }) => {
                   listing={listing}
                   index={index}
                   setCurrentJob={setCurrentJob}
-                  heart={heart}
                   user={user}
                 />
               ))}
@@ -71,8 +70,8 @@ const Jobs = ({ user }) => {
             <JobDetails
               job={jobs[currentJob]}
               user={user}
-              heartColor={heart?heart.includes(jobs[currentJob].job_id):false}
-              // setHeartColor={setHeartColor}
+              heartColor={heartColor}
+              setHeartColor={setHeartColor}
             />
           )}
         </Details>
