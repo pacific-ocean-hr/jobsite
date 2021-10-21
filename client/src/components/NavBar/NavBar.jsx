@@ -24,6 +24,13 @@ const StyledLinks = styled.div`
       color: rgba(0.9);
     }
   }
+  &.right-nav {
+    align-items: center;
+    display: flex;
+    justify-content: right;
+    position: relative;
+    text-align: right;
+  }
 `;
 
 const Logo = styled.a`
@@ -35,12 +42,18 @@ const Logo = styled.a`
 
 const NavDropdown = styled.ul`
   background-color: #eee;
+  border: 1px solid rgba(0, 0, 0, .6);
+  border-radius: 3px;
   color: rgba(0, 0, 0, .6);
   display: ${(props) => props.isVisible};
   list-style: none;
   margin: 0;
   padding: 12px;
-  width: 250px;
+  position: absolute;
+  right: -20px;
+  text-align: center;
+  top: 50px;
+  width: fit-content;
   li {
     padding: 6px;
     &:hover {
@@ -87,7 +100,7 @@ function NavBar({ user }) {
         <img className="logo-image" src="./assets/logo.png" alt="JobSite" />
       </Logo>
       {/* right side nav links */}
-      <StyledLinks>
+      <StyledLinks className="right-nav">
         {/* user is not signed in */}
         {!user && (
           <>
@@ -101,7 +114,7 @@ function NavBar({ user }) {
             <span>Welcome, {user.firstName}</span>
             <FaRegUserCircle size={24} className="styled-link" onClick={() => setIsVisible(!isVisible)} />
             <NavDropdown isVisible={isVisible ? 'block' : 'none'}>
-              <li><NavLink to="/user-profile" exact>Profile</NavLink></li>
+              <li><NavLink to="/profile" exact>Profile</NavLink></li>
               <li><NavLink to="/notes" exact>Notes</NavLink></li>
               <li><NavLink to="/saved" exact>Saved</NavLink></li>
               <li><NavLink to="/calendar" exact>Calendar</NavLink></li>
