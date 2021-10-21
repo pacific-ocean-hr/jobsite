@@ -79,7 +79,7 @@ const Notes = ({ user }) => {
   }, [user]);
 
   return (
-    <div style={{ paddingLeft: '15%', paddingRight: '15%' }}>
+    <div style={{ paddingLeft: '25%', paddingRight: '25%' }}>
       <div className="card" style={{ border: '1px solid #ACC196' }}>
         <button type="submit" className="mainButton" onClick={openTextArea}>
           {textArea ? 'Cancel' : 'Make a new note +'}{' '}

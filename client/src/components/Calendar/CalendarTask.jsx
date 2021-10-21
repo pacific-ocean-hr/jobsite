@@ -10,37 +10,22 @@ import styled from 'styled-components';
 
 const CalendarTask = ({ task, index, setCurrentJob, currentJobIndex }) => {
   const [hovered, setHovered] = useState(false);
-  const [textHovered, setTextHovered] = useState(false);
 
   const toggleHovered = () => {
     setHovered(!hovered);
   };
-  const toggleTextHovered = () => {
-    setTextHovered(!textHovered);
-  };
 
   return (
     <Task
-      className="card"
       onClick={() => setCurrentJob(index)}
-      onMouseEnter={toggleTextHovered}
-      onMouseLeave={toggleTextHovered}
       style={{
-        color: `${textHovered || currentJobIndex === index ? 'black' : 'gray'}`,
-        border: `${
-          currentJobIndex === index ? '3px solid #799496' : 'solid thin #ACC196'
-        }`,
+        border: '2px solid #799496',
       }}
     >
-      <h3>
-        <img
-          src="../assets/Novartis.png"
-          style={{ maxHeight: '40px', maxWidth: '40px' }}
-        />
-        &nbsp;&nbsp;{task.time}: {task.task}
-      </h3>
+      <span>
+        <span style={{ fontWeight: 'bold' }}>{task.task}</span> {task.time.includes('-') ? `from ${task.time}` : `at ${task.time}`}
+      </span>
       <JoinMeeting
-        className="mainButton"
         onMouseEnter={toggleHovered}
         onMouseLeave={toggleHovered}
         style={{
@@ -55,24 +40,25 @@ const CalendarTask = ({ task, index, setCurrentJob, currentJobIndex }) => {
 
 const Task = styled.div`
   box-shadow: 0 4px 2px -2px gray;
-  margin: 10px;
   font-family: Sans-serif;
-  color: gray;
+  color: black;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  padding: 5%;
+  margin-bottom: 20px;
+  max-width: 50%;
 `;
 
 const JoinMeeting = styled.button`
-  padding: 8px;
+  padding: 2px;
   background-color: #49475b;
   color: white;
-  font-size: 16px;
   border-radius: 5px;
   border: 1px solid gray;
   font-family: Sans-serif;
   justify-content: flex-end;
+  margin-top: 2px;
 `;
 
 export default CalendarTask;

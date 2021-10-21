@@ -51,6 +51,9 @@ function NavBar({ user }) {
               <NavLink to="/calendar" exact className="styled-link">
                 Calendar
               </NavLink>
+              <NavLink to="/profile" exact className="styled-link">
+                Profile
+              </NavLink>
             </>
           )}
         </StyledLinks>
