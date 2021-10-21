@@ -1,12 +1,30 @@
-import React, { useState } from 'react';
+/* eslint-disable react/prop-types */
+import React from 'react';
 import { FaHeart } from 'react-icons/fa';
+import axios from 'axios';
 
-const JobDetails = ({ job }) => {
-  const [heartColor, setHeartColor] = useState('white');
-
+const JobDetails = ({
+  job, user, heartColor, setHeartColor,
+}) => {
   const onHeartClick = () => {
-    const color = heartColor === 'white' ? 'pink' : 'white';
-    setHeartColor(color);
+    if (heartColor === 'white') {
+      setHeartColor('pink');
+      axios
+        .post('http://localhost:4008/saved', {
+          user_id: user.id,
+          item: job,
+          level: 'interested',
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setHeartColor('white');
+
+      axios
+        .delete(`http://localhost:4008/saved/${job.job_id}`)
+        .catch((error) => {
+          console.log('Error deleting saved item: ', error);
+        });
+    }
   };
 
   return (
@@ -14,9 +32,9 @@ const JobDetails = ({ job }) => {
       <h2>
         {job.title}
         <FaHeart
-          fill={heartColor}
-          stroke='black'
-          strokeWidth='20px'
+          fill={heartColor?'pink':'white'}
+          stroke="black"
+          strokeWidth="20px"
           style={{ cursor: 'pointer' }}
           onClick={onHeartClick}
         />
@@ -25,7 +43,7 @@ const JobDetails = ({ job }) => {
         dangerouslySetInnerHTML={{
           __html: job.description,
         }}
-      ></div>
+      />
     </div>
   );
 };

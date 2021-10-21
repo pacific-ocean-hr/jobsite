@@ -18,7 +18,6 @@ const JobListing = ({ listing, index, setCurrentJob, currentJobIndex }) => {
   const toggleTextHovered = () => {
     setTextHovered(!textHovered);
   };
-
   return (
     <Listing
       className="card"

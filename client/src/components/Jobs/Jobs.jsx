@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import fetchJobs from '../../hooks/fetchJobs';
-import JobListing from './JobListing';
-import JobDetails from './JobDetails';
-import Pagination from './Pagination';
-import SearchForm from './SearchForm';
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import axios from "axios";
+import fetchJobs from "../../hooks/fetchJobs";
+import JobListing from "./JobListing";
+import JobDetails from "./JobDetails";
+import Pagination from "./Pagination";
+import SearchForm from "./SearchForm";
 
-const Jobs = () => {
+const Jobs = ({ user }) => {
   const [params, setParams] = useState({});
   const [page, setPage] = useState(1);
   const [currentJob, setCurrentJob] = useState(0);
+  const [heart, setHeart] = useState(null);
+  const [saveJob, setSaveJob] = useState([]);
+
   const { jobs } = fetchJobs(params, page);
 
   const changeParams = (param) => {
@@ -18,6 +23,26 @@ const Jobs = () => {
     newParams[key] = param[key];
     setParams(newParams);
   };
+
+  useEffect(async () => {
+    console.log(user);
+    if (user) {
+      const response = await axios.get(
+        `http://localhost:4008/saved/id/${user.id}`
+      );
+      // await setSaveJob(response.data);
+      // let color = false;
+      console.log("saveJob", saveJob, response.data);
+      const fav = response.data
+        .map((item) => item.job_id)
+        .filter((id) => id === jobs[currentJob].job_id);
+      console.log("pinkHeart", fav);
+      // if (fav.length > 0) {
+      //   color = true;
+      // }
+      setHeart(fav);
+    }
+  }, [heart,currentJob]);
 
   return (
     <div>
@@ -35,12 +60,21 @@ const Jobs = () => {
                   listing={listing}
                   index={index}
                   setCurrentJob={setCurrentJob}
+                  heart={heart}
+                  user={user}
                 />
               ))}
           </Listings>
         </div>
         <Details className="bigCard">
-          {jobs[currentJob] && <JobDetails job={jobs[currentJob]} />}
+          {jobs[currentJob] && (
+            <JobDetails
+              job={jobs[currentJob]}
+              user={user}
+              heartColor={heart?heart.includes(jobs[currentJob].job_id):false}
+              // setHeartColor={setHeartColor}
+            />
+          )}
         </Details>
         <Pagination page={page} setPage={setPage} />
       </JobPage>

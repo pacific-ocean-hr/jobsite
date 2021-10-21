@@ -17,20 +17,18 @@ const Saved = ({ user }) => {
       });
   };
 
-  const removeSaved = (savedId) => {
-    console.log(savedId);
-    // axios
-    //   .delete(`http://localhost:4008/saved/${savedId}`)
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log('Error deleting saved item: ', error);
-    //   });
+  // eslint-disable-next-line camelcase
+  const removeSaved = (id) => {
+    axios
+      .delete(`http://localhost:4008/saved/${id}`)
+      .then(() => getSaved())
+      .catch((error) => {
+        console.log('Error deleting saved item: ', error);
+      });
   };
 
   useEffect(() => {
-    user !== null ? getSaved() : null;
+    user?getSaved():null;
   }, [user]);
 
   return (
@@ -51,20 +49,35 @@ const Saved = ({ user }) => {
             <h3>Interested</h3>
             {saved
               .filter((item) => item.level === 'interested')
-              .map((savedItem) => {
-                return (
-                  <div key={savedItem._id} className="card">
-                    {item}
-                    <button
-                      type="button"
-                      onClick={() => removeSaved(savedItem._id)}
-                      className="mainButton"
-                    >
-                      X
-                    </button>
+              .map((savedItem) => (
+                // eslint-disable-next-line no-underscore-dangle
+                <div key={savedItem._id} className="card" style={{ backgroundColor: 'white', color: 'black' }}>
+                  <div>
+                    {'Company: '}
+                    {savedItem.item[0].company_name}
                   </div>
-                );
-              })}
+                  <div>
+                    {'Title: '}
+                    {savedItem.item[0].title}
+                  </div>
+                  <div>
+                    {'Type: '}
+                    {savedItem.item[0].job_type}
+                  </div>
+                  <div>
+                    {'Salary: '}
+                    {savedItem.item[0].salary ? savedItem.item[0].salary : 'unknown'}
+                  </div>
+                  <a href={savedItem.item[0].url}>More Details</a>
+                  <button
+                    type="button"
+                    onClick={() => removeSaved(savedItem.job_id)}
+                    className="mainButton"
+                  >
+                    X
+                  </button>
+                </div>
+              ))}
           </div>
         )}
       </div>
