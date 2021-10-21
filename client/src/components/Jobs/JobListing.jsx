@@ -61,7 +61,6 @@ const JobListing = ({ listing, index, setCurrentJob, currentJobIndex }) => {
 const Listing = styled.div`
   box-shadow: 0 4px 2px -2px gray;
   margin: 10px;
-  font-family: Sans-serif;
   color: gray;
   border-radius: 8px;
   display: flex;
@@ -77,7 +76,6 @@ const ApplyButton = styled.button`
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid gray;
-  font-family: Sans-serif;
   justify-content: flex-end;
 `;
 

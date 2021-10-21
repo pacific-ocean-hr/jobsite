@@ -50,7 +50,7 @@ export const theme = {
     yellow: '#E9EB9E',
     white: '#FFFFFF',
   },
-  fontFamily: 'Sans-serif',
+  fontFamily: 'Rubik, sans-serif',
   fontSize: {
     text: '12px',
     button: '16px',
