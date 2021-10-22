@@ -5,6 +5,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+import { FaHeart } from 'react-icons/fa';
+
 const JobDetails = ({ job, user }) => {
   const [heartColor, setHeartColor] = useState('white');
 
@@ -27,6 +29,7 @@ const JobDetails = ({ job, user }) => {
           console.log('Error deleting saved item: ', error);
         });
     }
+  };
 
   return (
     <div>
