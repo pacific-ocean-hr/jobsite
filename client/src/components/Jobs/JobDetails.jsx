@@ -15,8 +15,8 @@ const JobDetails = ({ job }) => {
         {job.title}
         <FaHeart
           fill={heartColor}
-          stroke='black'
-          strokeWidth='20px'
+          stroke="black"
+          strokeWidth="20px"
           style={{ cursor: 'pointer' }}
           onClick={onHeartClick}
         />
@@ -25,7 +25,7 @@ const JobDetails = ({ job }) => {
         dangerouslySetInnerHTML={{
           __html: job.description,
         }}
-      ></div>
+      />
     </div>
   );
 };

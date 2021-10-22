@@ -15,29 +15,29 @@ export const GlobalStyle = createGlobalStyle`
   }
   .mainButton {
     padding: 7px;
-  background-color: #49475B;
-  color: white;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid gray;
-  float: right;
+    background-color: #49475B;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    float: right;
   }
   .card {
-  box-shadow: 0 4px 2px -2px gray;
-  margin: 10px;
-  font-size: 14px;
-  border-radius: 8px;
-  display: grid;
-  background-color: white;
-  padding: 20px;
+    box-shadow: 0 4px 2px -2px gray;
+    margin-bottom: 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    display: grid;
+    background-color: white;
+    padding: 12px;
   }
   .bigCard {
-    padding: 20px;
-  max-height: 500px;
-  overflow-y: scroll;
-  box-shadow: 0px 4px 4px -1px gray;
-  background-color: white;
-  border-radius: 8px;
+    padding: 12px;
+    // max-height: 500px;
+    // overflow-y: scroll;
+    // box-shadow: 0px 4px 4px -1px gray;
+    background-color: white;
+    border-radius: 6px;
   }
 `;
 

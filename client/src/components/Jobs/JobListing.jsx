@@ -9,9 +9,29 @@ import moment from 'moment';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+const Listing = styled.div`
+  color: gray;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+  justify-content: space-between;
+`;
+
+const ApplyButton = styled.button`
+  padding: 8px;
+  background-color: #49475b;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  justify-content: flex-end;
+`;
+
 const JobListing = ({ listing, index, setCurrentJob, currentJobIndex }) => {
   const [hovered, setHovered] = useState(false);
   const [textHovered, setTextHovered] = useState(false);
+
   const toggleHovered = () => {
     setHovered(!hovered);
   };
@@ -57,26 +77,5 @@ const JobListing = ({ listing, index, setCurrentJob, currentJobIndex }) => {
     </Listing>
   );
 };
-
-const Listing = styled.div`
-  box-shadow: 0 4px 2px -2px gray;
-  margin: 10px;
-  color: gray;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: row;
-  flex-flow: row wrap;
-  justify-content: space-between;
-`;
-
-const ApplyButton = styled.button`
-  padding: 8px;
-  background-color: #49475b;
-  color: white;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid gray;
-  justify-content: flex-end;
-`;
 
 export default JobListing;

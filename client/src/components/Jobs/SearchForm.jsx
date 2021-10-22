@@ -95,6 +95,7 @@ function SearchForm({ params, changeParams }) {
           />
           &nbsp;&nbsp;
           <button
+            type="button"
             className="mainButton"
             onClick={handleSearch}
           >

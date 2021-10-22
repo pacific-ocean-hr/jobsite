@@ -6,6 +6,24 @@ import JobDetails from './JobDetails';
 import Pagination from './Pagination';
 import SearchForm from './SearchForm';
 
+const JobPage = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 24px;
+  border-radius: 6px;
+  background-color: #f2f2f2;
+`;
+
+const Listings = styled.div`
+  background-color: #f2f2f2;
+`;
+
+const Details = styled.div`
+  border: 1px solid #799496;
+  font-size: 12px;
+`;
+
 const Jobs = () => {
   const [params, setParams] = useState({});
   const [page, setPage] = useState(1);
@@ -24,7 +42,7 @@ const Jobs = () => {
       <SearchForm params={params} changeParams={changeParams} />
       <JobPage>
         <div>
-          <Pagination page={page} setPage={setPage} />
+          {/* <Pagination page={page} setPage={setPage} /> */}
           <Listings>
             {jobs &&
               jobs.map((listing, index) => (
@@ -47,26 +65,5 @@ const Jobs = () => {
     </div>
   );
 };
-
-const JobPage = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 20px;
-  padding: 40px;
-  padding-top: 20px;
-  border-radius: 6px;
-  background-color: #f2f2f2;
-  margin-top: 40px;
-`;
-//
-
-const Listings = styled.div`
-  background-color: #f2f2f2;
-`;
-
-const Details = styled.div`
-  border: 3px solid #799496;
-  font-size: 12px;
-`;
 
 export default Jobs;
