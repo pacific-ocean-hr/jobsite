@@ -8,7 +8,7 @@ import SearchForm from './SearchForm';
 
 const JobPage = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 2fr 3fr;
   gap: 20px;
   padding: 24px;
   border-radius: 6px;

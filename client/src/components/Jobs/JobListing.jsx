@@ -6,16 +6,31 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/button-has-type */
 import moment from 'moment';
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const Listing = styled.div`
-  color: gray;
-  border-radius: 8px;
+  border: ${(props) => props.borderColor};
+  color: ${({ theme }) => theme.color.purple};
+  border-radius: 6px;
   display: flex;
   flex-direction: row;
-  flex-flow: row wrap;
-  justify-content: space-between;
+  &:hover {
+    color: black;
+  }
+  P {
+    margin: 3px;
+  }
+`;
+
+const ButtonFooter = styled.div`
+  align-items: end;
+  display: flex;
+`;
+
+const DatePosted = styled.p`
+  flex: 1;
+  margin: 0;
 `;
 
 const ApplyButton = styled.button`
@@ -29,51 +44,28 @@ const ApplyButton = styled.button`
 `;
 
 const JobListing = ({ listing, index, setCurrentJob, currentJobIndex }) => {
-  const [hovered, setHovered] = useState(false);
-  const [textHovered, setTextHovered] = useState(false);
-
-  const toggleHovered = () => {
-    setHovered(!hovered);
-  };
-  const toggleTextHovered = () => {
-    setTextHovered(!textHovered);
-  };
+  const { company_name, title, publication_date, url } = listing;
+  const isSelected = currentJobIndex === index;
 
   return (
     <Listing
       className="card"
       onClick={() => setCurrentJob(index)}
-      onMouseEnter={toggleTextHovered}
-      onMouseLeave={toggleTextHovered}
-      style={{
-        color: `${textHovered || currentJobIndex === index ? 'black' : 'gray'}`,
-        border: `${
-          currentJobIndex === index ? '3px solid #799496' : 'solid thin #ACC196'
-        }`,
-      }}
+      borderColor={isSelected ? '2px solid #799496' : '1px solid #ACC196'}
     >
-      <h3>
-        <img
-          src="../assets/Novartis.png"
-          style={{ maxHeight: '40px', maxWidth: '40px' }}
-        />
-        &nbsp;&nbsp;{listing.company_name}: {listing.title}
-      </h3>
-      <h6>
-        Posted {moment(listing.publication_date).fromNow()}
-        <a href={listing.url} target="_blank" rel="noreferrer">
-          <ApplyButton
-            className="mainButton"
-            onMouseEnter={toggleHovered}
-            onMouseLeave={toggleHovered}
-            style={{
-              transform: `${hovered ? 'scale(1.15, 1.15)' : 'scale(1, 1)'}`,
-            }}
-          >
-            Apply
-          </ApplyButton>
+      <img
+        src="../assets/Novartis.png"
+        style={{ maxHeight: '40px', maxWidth: '40px' }}
+      />
+      <p>{title}</p>
+      <p>{company_name}</p>
+
+      <ButtonFooter>
+        <DatePosted>{moment(publication_date).fromNow()}</DatePosted>
+        <a href={url} target="_blank" rel="noreferrer">
+          <ApplyButton className="mainButton">Apply</ApplyButton>
         </a>
-      </h6>
+      </ButtonFooter>
     </Listing>
   );
 };

@@ -14,13 +14,18 @@ export const GlobalStyle = createGlobalStyle`
     max-width: 1280px;
   }
   .mainButton {
-    padding: 7px;
-    background-color: #49475B;
-    color: white;
-    font-size: 16px;
+    background-color: ${({ theme }) => theme.color.teal};
+    border: ${({ theme }) => `1px solid ${theme.color.purple}`};
     border-radius: 5px;
-    border: 1px solid gray;
-    float: right;
+    color: ${({ theme }) => theme.color.white};
+    font-size: 14px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    &:hover {
+      background-color: ${({ theme }) => theme.color.green};
+      border: ${({ theme }) => `1px solid ${theme.color.purple}`};
+      color: ${({ theme }) => theme.color.purple};
+    }
   }
   .card {
     box-shadow: 1px 1px 2px rgb(121, 148, 150, .2);
