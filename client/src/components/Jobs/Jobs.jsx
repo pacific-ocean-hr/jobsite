@@ -1,47 +1,39 @@
 /* eslint-disable operator-linebreak */
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import ClipLoader from 'react-spinners/ClipLoader';
-
-import fetchJobs from '../../hooks/fetchJobs';
-
-import JobListing from './JobListing';
-import JobDetails from './JobDetails';
-import Pagination from './Pagination';
-import SearchForm from './SearchForm';
-
-const JobPage = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-  gap: 20px;
-  padding: 24px;
-  border-radius: 6px;
-  background-color: #f2f2f2;
-`;
-
-const Listings = styled.div`
-  background-color: #f2f2f2;
-`;
-
-const Details = styled.div`
-  border: 1px solid #799496;
-  font-size: 14px;
-`;
-
-const LoadingState = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const SPINNER_SIZE = 150;
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import axios from "axios";
+import fetchJobs from "../../hooks/fetchJobs";
+import JobListing from "./JobListing";
+import JobDetails from "./JobDetails";
+import Pagination from "./Pagination";
+import SearchForm from "./SearchForm";
 
 // eslint-disable-next-line react/prop-types
 const Jobs = ({ user }) => {
   const [params, setParams] = useState({});
   const [page, setPage] = useState(1);
   const [currentJob, setCurrentJob] = useState(0);
-  const { jobs, loading, hasData } = fetchJobs(params, page);
+  const [heartColor, setHeartColor] = useState('white');
+  const [saveJob, setSaveJob] = useState([]);
 
+  const { jobs } = fetchJobs(params, page);
+
+  useEffect(async () => {
+    if (user) {
+      const response = await axios.get(
+        `http://localhost:4008/saved/id/${user.id}`
+      );
+      await setSaveJob(response.data);
+      let color = false;
+      const fav = response.data
+        .map((item) => item.job_id)
+        .filter((id) => id === jobs[currentJob].job_id);
+      if (fav.length > 0) {
+        color = true;
+      }
+      setHeartColor(color?"pink":"white");
+    }
+  }, [currentJob]);
   const changeParams = (param) => {
     const newParams = { ...params };
     const key = Object.keys(param)[0];
@@ -51,17 +43,17 @@ const Jobs = ({ user }) => {
 
   return (
     <div>
-      <SearchForm params={params} changeParams={changeParams} hasData={hasData} />
-      <LoadingState>
-        <ClipLoader color="#ACC196" loading={loading} size={SPINNER_SIZE} />
-      </LoadingState>
-      {!loading && (
+      <SearchForm
+        params={params}
+        changeParams={changeParams}
+        hasData={hasData}
+      />
       <JobPage>
         <div>
-          {/* <Pagination page={page} setPage={setPage} /> */}
+          <Pagination page={page} setPage={setPage} />
           <Listings>
-            {jobs
-              && jobs.map((listing, index) => (
+            {jobs &&
+              jobs.map((listing, index) => (
                 <JobListing
                   currentJobIndex={currentJob}
                   // eslint-disable-next-line react/no-array-index-key
@@ -75,13 +67,40 @@ const Jobs = ({ user }) => {
           </Listings>
         </div>
         <Details user={user} className="bigCard">
-          {jobs[currentJob] && <JobDetails job={jobs[currentJob]} />}
-        </Details>
+        {jobs[currentJob] && (
+            <JobDetails
+              job={jobs[currentJob]}
+              user={user}
+              heartColor={heartColor}
+              setHeartColor={setHeartColor}
+            />
+          )}
+            </Details>
         <Pagination page={page} setPage={setPage} />
       </JobPage>
-      )}
     </div>
   );
 };
+
+const JobPage = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 20px;
+  padding: 40px;
+  padding-top: 20px;
+  border-radius: 6px;
+  background-color: #f2f2f2;
+  margin-top: 40px;
+`;
+//
+
+const Listings = styled.div`
+  background-color: #f2f2f2;
+`;
+
+const Details = styled.div`
+  border: 3px solid #799496;
+  font-size: 12px;
+`;
 
 export default Jobs;

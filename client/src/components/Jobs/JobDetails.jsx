@@ -3,15 +3,30 @@
 /* eslint-disable react/jsx-closing-tag-location */
 /* eslint-disable react/self-closing-comp */
 import React, { useState } from 'react';
-import { FaHeart } from 'react-icons/fa';
+import axios from 'axios';
 
 const JobDetails = ({ job, user }) => {
   const [heartColor, setHeartColor] = useState('white');
 
   const onHeartClick = () => {
-    const color = heartColor === 'white' ? 'pink' : 'white';
-    setHeartColor(color);
-  };
+    if (heartColor === 'white') {
+      setHeartColor('pink');
+      axios
+        .post('http://localhost:4008/saved', {
+          user_id: user.id,
+          item: job,
+          level: 'interested',
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setHeartColor('white');
+
+      axios
+        .delete(`http://localhost:4008/saved/${job.job_id}`)
+        .catch((error) => {
+          console.log('Error deleting saved item: ', error);
+        });
+    }
 
   return (
     <div>

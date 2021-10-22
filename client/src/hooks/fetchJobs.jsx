@@ -56,10 +56,6 @@ const fetchJobs = (params, page) => {
   });
 
   useEffect(async () => {
-    const token = document.cookie;
-    if (token) {
-      setUser(jwt(token.slice(6)));
-    }
 
     const cancelToken = axios.CancelToken.source();
     dispatch({ type: ACTIONS.MAKE_REQUEST });
@@ -72,15 +68,6 @@ const fetchJobs = (params, page) => {
           ...params,
         },
       });
-      let saved;
-      if (user) {
-        saved = await axios.get(`http://localhost:4008/saved/id/${user}`);
-      } else {
-        saved = { data: [] };
-      }
-
-      const userSaved = Object.values(saved.data).map((item) => item.job_id);
-
       const dataLength = jobs.length;
       if (dataLength !== 0) {
         hasData = true;
