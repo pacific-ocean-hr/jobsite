@@ -1,42 +1,88 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 
-export const BlogStyles = styled.div`
+const BlogStyles = styled.div`
   margin: auto;
-  width: 50%;
+  width: 80%;
+  margin-top: 50px;
 `;
 
-const BlogFeed = ({ focusBlog, blogs, photos }) => {
-  const handleBlogClick = (post, photo) => {
-    focusBlog(post, photo);
+const BlogItems = styled.div`
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+grid-gap: 5px;
+border: 1px solid black;
+margin-bottom: 10px;
+  `;
+
+const ArticleImage = styled.div`
+grid-column: span 1 / auto;
+  `;
+
+const Title = styled.div`
+grid-column: span 2 / auto;
+  `;
+
+const Author = styled.div`
+grid-row: span 3 / auto;
+  `;
+
+const Image = styled.div`
+border: 1px solid black;
+  `;
+
+const Article = styled.div`
+grid-row: span 3 / auto;
+  `;
+
+const BlogFeed = ({ focusBlog, blogs }) => {
+  const handleBlogClick = (blog) => {
+    focusBlog(blog);
   };
 
   return (
     <BlogStyles>
       <div className="blogFeed">
-        {blogs.map((blog) => {
-          const { id, title, body } = blog;
+        {blogs.map((blog, index) => {
+          const {
+            author,
+            title,
+            urlToImage,
+            content,
+            publishedAt,
+          } = blog;
           return (
-            <div className="blog" key={id}>
-              <h1 className="title">{title}</h1>
-              {photos.map((photo) => {
-                const { url } = photo;
-                const photoId = photo.id;
-                return (
-                  // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+            <BlogItems>
+              <div className="blog" key={index}>
+                <ArticleImage>
+                  <Image>
                   <img
-                    src={url}
-                    key={photoId}
+                    src={urlToImage}
                     alt="Could not load"
-                    onClick={handleBlogClick}
+                    onClick={() => handleBlogClick(blog)}
+                    height="475px"
+                    width="900px"
                   />
-                );
-              })}
-              <h4 className="author">By: Mock Author</h4>
-              <p className="body">{body}</p>
-            </div>
+                  </Image>
+                  <div className="date">Published on: <strong>{moment(publishedAt).format("MMM Do YY")}</strong></div>
+                </ArticleImage>
+              </div>
+              <div>
+                <Title>
+                  <h2 className="title" onClick={() => handleBlogClick(blog)}>{title}</h2>
+                </Title>
+                  <Author>
+                  <h4 className="author">{author}</h4>
+                  </Author>
+                  <Article>
+                    <p className="body">{content}</p>
+                  </Article>
+              </div>
+            </BlogItems>
           );
         })}
       </div>

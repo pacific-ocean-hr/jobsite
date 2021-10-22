@@ -1,11 +1,10 @@
 const { Pool } = require('pg');
-const { POSTGRES_USER, POSTGRES_PASSWORD } = require('../config.js');
 
 const pool = new Pool({
-  user: POSTGRES_USER,
-  host: '127.0.0.1',
+  user: 'ubuntu',
+  host: 'ec2-18-118-109-254.us-east-2.compute.amazonaws.com',
   database: 'joblisting',
-  password: POSTGRES_PASSWORD,
+  password: 'fiat',
   port: 5432,
 });
 
@@ -37,8 +36,8 @@ const searchlisting = `with leveling as  (
                         on jl.job_id = l.job_id
                         )
                         select *
-                        from final_query`
-const joblisting = 'select * from joblisting'
+                        from final_query`;
+const joblisting = 'select * from joblisting';
 
 module.exports = {
   getJoblistings: (query, callback) => {
@@ -78,14 +77,16 @@ module.exports = {
     combinedQuery = combinedQuery.concat(explevelQuery);
 
     const sqlQuery =
-      combinedQuery.length === 0 ?  joblisting : `${searchlisting} where ${combinedQuery};`;
+      combinedQuery.length === 0
+        ? joblisting
+        : `${searchlisting} where ${combinedQuery};`;
 
     pool.query(sqlQuery, (err, data) => {
       if (err) {
-        callback(err)
+        callback(err);
       } else {
-        callback(null, data.rows)
+        callback(null, data.rows);
       }
-    })
-  }
-}
+    });
+  },
+};
