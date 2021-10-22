@@ -54,6 +54,9 @@ const App = () => {
             <Route exact path="/notes">
               <Notes user={user} />
             </Route>
+            <Route exact path="/profile">
+              <UserProfile user={user} />
+            </Route>
             <Route exact path="/saved">
               <Saved user={user} />
             </Route>
