@@ -15,21 +15,9 @@ const Saved = ({ user }) => {
       .then((response) => {
         setSaved(response.data);
       })
-      .catch((error) => {
-        console.log('Error getting saved items: ', error);
+      .catch(() => {
+        throw new Error('Error getting saved items: ');
       });
-  };
-
-  const removeSaved = (savedId) => {
-    console.log(savedId);
-    // axios
-    //   .delete(`http://localhost:4008/saved/${savedId}`)
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log('Error deleting saved item: ', error);
-    //   });
   };
 
   useEffect(() => {
