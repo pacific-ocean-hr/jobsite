@@ -12,8 +12,10 @@ const axios = require('axios');
 
 const Notes = ({ user }) => {
   const [textArea, setTextArea] = useState(false);
-  const [edit, setEdit] = useState(false);
+  const [edit, setEdit] = useState(''); // id
   const [notes, setNotes] = useState([]);
+  const [newTitle, setNewTitle] = useState('');
+  const [newBody, setNewBody] = useState('');
 
   const getNotes = () => {
     axios
@@ -45,15 +47,15 @@ const Notes = ({ user }) => {
   };
 
   const editNote = (noteId, newContent) => {
-    console.log('here!', noteId, newContent);
-    // axios
-    //   .put(`http://localhost:4007/notes/${noteId}`, newContent)
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log('Error in editing note: ', error);
-    //   });
+    axios
+      .put(`http://localhost:4007/notes/${noteId}`, newContent)
+      .then((response) => {
+        setEdit(false);
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log('Error in editing note: ', error);
+      });
   };
 
   const removeNote = (noteId) => {
@@ -71,16 +73,18 @@ const Notes = ({ user }) => {
     setTextArea(!textArea);
   };
 
-  const openEdit = () => {
-    setEdit(!edit);
-  };
-
   useEffect(() => {
     user !== null ? getNotes() : null;
   }, [user]);
 
   return (
-    <div style={{ padding: '5% 15% 5% 15%', marginTop: '40px', backgroundColor: '#f2f2f2', maxHeight: '600px' }}>
+    <div style={{
+      padding: '5% 15% 5% 15%',
+      marginTop: '40px',
+      backgroundColor: '#f2f2f2',
+      maxHeight: '600px',
+    }}
+    >
       <div className="card">
         <button type="submit" className="mainButton" style={{ backgroundColor: '#ACC196' }} onClick={openTextArea}>
           {textArea ? 'Cancel' : 'Make a new note +'}{' '}
@@ -128,24 +132,36 @@ const Notes = ({ user }) => {
                   x
                 </button>
                 <button
-                  contentEditable="false"
                   type="button"
-                  onClick={edit ? () => editNote(note.title, note.body) : openEdit}
+                  onClick={edit === note._id ? () => editNote(note._id, { newTitle, newBody }) : () => setEdit(note._id)}
                   className="mainButton"
                   style={{
                     backgroundColor: '#799496',
-                    width: `${edit ? '60px' : '50px'}`,
+                    width: `${edit === note._id ? '60px' : '50px'}`,
                     height: '40px',
                     justifySelf: 'right',
                   }}
                 >
-                  {edit ? 'Save' : '✏️'}
+                  {edit === note._id ? 'Save' : '✏️'}
                 </button>
               </div>
-              <span contentEditable={edit ? 'true' : 'false'} style={{ fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}>
+              <span
+                contentEditable={edit === note._id ? 'true' : 'false'}
+                onInput={(event) => {
+                  setNewTitle(event.currentTarget.textContent);
+                }}
+                style={{ fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}
+              >
                 {note.title}
               </span>
-              <span contentEditable={edit ? 'true' : 'false'} style={{ border: `${edit ? '1px solid gray' : 'none'}`, borderRadius: '4px' }}>{note.body}</span>
+              <span
+                contentEditable={edit === note._id ? 'true' : 'false'}
+                onInput={(event) => {
+                  setNewBody(event.currentTarget.textContent);
+                }}
+                style={{ border: `${edit === note._id ? '1px solid gray' : 'none'}`, borderRadius: '4px' }}
+              >{note.body}
+              </span>
               <span
                 contentEditable="false"
                 style={{
