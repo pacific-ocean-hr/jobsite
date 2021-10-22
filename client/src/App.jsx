@@ -34,7 +34,7 @@ const App = () => {
           <NavBar user={user} />
           <Switch>
             <Route exact path="/">
-              <Jobs />
+              <Jobs user={user} />
             </Route>
             <Route exact path="/blog">
               <Blog />
@@ -53,6 +53,9 @@ const App = () => {
             </Route>
             <Route exact path="/notes">
               <Notes user={user} />
+            </Route>
+            <Route exact path="/profile">
+              <UserProfile user={user} />
             </Route>
             <Route exact path="/saved">
               <Saved user={user} />

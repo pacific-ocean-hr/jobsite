@@ -1,4 +1,9 @@
 /* eslint-disable no-unused-expressions */
+<<<<<<< HEAD
+=======
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-undef */
+>>>>>>> main
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 
@@ -13,21 +18,9 @@ const Saved = ({ user }) => {
       .then((response) => {
         setSaved(response.data);
       })
-      .catch((error) => {
-        console.log('Error getting saved items: ', error);
+      .catch(() => {
+        throw new Error('Error getting saved items: ');
       });
-  };
-
-  const removeSaved = (savedId) => {
-    console.log(savedId);
-    // axios
-    //   .delete(`http://localhost:4008/saved/${savedId}`)
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log('Error deleting saved item: ', error);
-    //   });
   };
 
   useEffect(() => {
@@ -55,20 +48,18 @@ const Saved = ({ user }) => {
             <h3>Interested</h3>
             {saved
               .filter((item) => item.level === 'interested')
-              .map((savedItem) => {
-                return (
-                  <div key={savedItem._id} className="card">
-                    {item}
-                    <button
-                      type="button"
-                      onClick={() => removeSaved(savedItem._id)}
-                      className="mainButton"
-                    >
-                      X
-                    </button>
-                  </div>
-                );
-              })}
+              .map((savedItem) => (
+                <div key={savedItem._id} className="card">
+                  {item}
+                  <button
+                    type="button"
+                    onClick={() => removeSaved(savedItem._id)}
+                    className="mainButton"
+                  >
+                    X
+                  </button>
+                </div>
+              ))}
           </div>
         )}
       </div>

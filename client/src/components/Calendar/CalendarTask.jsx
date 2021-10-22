@@ -28,6 +28,7 @@ const CalendarTask = ({ task, index, setCurrentJob, currentJobIndex }) => (
 );
 
 const Task = styled.div`
+<<<<<<< HEAD
   background-color: white;
   border: 1px solid #49475B;
   font-family: Sans-serif;
@@ -37,6 +38,25 @@ const Task = styled.div`
   margin: 10px;
   max-width: 50%;
   padding: 10px;
+=======
+  box-shadow: 0 4px 2px -2px gray;
+  margin: 10px;
+  color: gray;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const JoinMeeting = styled.button`
+  padding: 8px;
+  background-color: #49475b;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  justify-content: flex-end;
+>>>>>>> main
 `;
 
 export default CalendarTask;

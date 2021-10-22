@@ -9,6 +9,10 @@ export const GlobalStyle = createGlobalStyle`
   * {
   font-family:${({ theme }) => theme.fontFamily};
   }
+  .App {
+    margin: 0 auto;
+    max-width: 1280px;
+  }
   .mainButton {
     padding: 7px;
   background-color: #49475B;
@@ -45,7 +49,7 @@ export const theme = {
     yellow: '#E9EB9E',
     white: '#FFFFFF',
   },
-  fontFamily: 'Sans-serif',
+  fontFamily: 'Rubik, sans-serif',
   fontSize: {
     text: '12px',
     button: '16px',
