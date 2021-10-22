@@ -26,7 +26,7 @@ const SearchBank = (key, item) => {
   return searchBank[key][item];
 };
 
-function SearchForm({ params, changeParams }) {
+function SearchForm({ params, changeParams, hasData }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [salary, setSalary] = useState('');
   const [jobType, setJobType] = useState('');
@@ -151,6 +151,7 @@ function SearchForm({ params, changeParams }) {
         {explevel}
       </SearchButton>
       )}
+      {!hasData ? <div style={{ color: 'red' }}>No Data With That Filter</div> : null}
     </>
   );
 }
