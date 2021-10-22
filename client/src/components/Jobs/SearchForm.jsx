@@ -2,6 +2,42 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaRegWindowClose } from 'react-icons/fa';
 
+const Form = styled.form`
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+  margin-top: 20px;
+`;
+
+const Input = styled.input`
+  height: 25px;
+  width: 300px;
+`;
+
+const FilterOptions = styled.select`
+  height: 25px;
+  padding: 2px;
+  margin-right: 5px;
+`;
+
+const Filters = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 24px 0;
+  position: relative;
+`;
+
+const SearchButton = styled.button`
+  display: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 10%;
+`;
+
 const SearchBank = (key, item) => {
   const searchBank = {
     salary: {
@@ -82,7 +118,7 @@ function SearchForm({ params, changeParams }) {
         style={{ display: 'flex', justifyContent: 'center', color: '#49475B' }}
       >
         <h4 style={{ fontStyle: 'italic' }}>
-          "Connecting people with jobs and jobs with people."
+          &#34;Connecting people with jobs and jobs with people.&#34;
         </h4>
       </div>
       <Form action="">
@@ -155,44 +191,5 @@ function SearchForm({ params, changeParams }) {
     </>
   );
 }
-
-const Form = styled.form`
-  display: flex;
-  align-items: center;
-  position: relative;
-  justify-content: space-around;
-  flex-wrap: nowrap;
-  margin-top: 20px;
-`;
-
-const Input = styled.input`
-  height: 25px;
-  width: 300px;
-`;
-
-const FilterOptions = styled.select`
-  height: 25px;
-  padding: 2px;
-  margin-right: 5px;
-`;
-
-const Filters = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  flex-wrap: nowrap;
-  margin-top: 10px;
-  margin-right: 95px;
-`;
-
-const SearchButton = styled.button`
-  display: row;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-  cursor: pointer;
-  border-radius: 10%;
-`;
 
 export default SearchForm;
