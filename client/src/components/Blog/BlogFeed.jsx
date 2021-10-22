@@ -3,6 +3,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 
 const BlogStyles = styled.div`
   margin: auto;
@@ -11,21 +12,34 @@ const BlogStyles = styled.div`
 `;
 
 const BlogItems = styled.div`
-border: solid 2px black;
-margin-top: 25px
-`;
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+grid-gap: 5px;
+border: 1px solid black;
+margin-bottom: 10px;
+  `;
+
+const ArticleImage = styled.div`
+grid-column: span 1 / auto;
+  `;
 
 const Title = styled.div`
-position: relative;
-padding-left: 275px
-`;
+grid-column: span 2 / auto;
+  `;
 
 const Author = styled.div`
-position: relative;
-padding-left: 275px
-`;
+grid-row: span 3 / auto;
+  `;
 
-const BlogFeed = ({ focusBlog, blogs, photos }) => {
+const Image = styled.div`
+border: 1px solid black;
+  `;
+
+const Article = styled.div`
+grid-row: span 3 / auto;
+  `;
+
+const BlogFeed = ({ focusBlog, blogs }) => {
   const handleBlogClick = (blog) => {
     focusBlog(blog);
   };
@@ -33,31 +47,40 @@ const BlogFeed = ({ focusBlog, blogs, photos }) => {
   return (
     <BlogStyles>
       <div className="blogFeed">
-        {blogs.map((blog) => {
+        {blogs.map((blog, index) => {
           const {
             author,
             title,
             urlToImage,
             content,
+            publishedAt,
           } = blog;
           return (
             <BlogItems>
-              <div className="blog" key={blog.source.id}>
+              <div className="blog" key={index}>
+                <ArticleImage>
+                  <Image>
+                  <img
+                    src={urlToImage}
+                    alt="Could not load"
+                    onClick={() => handleBlogClick(blog)}
+                    height="475px"
+                    width="900px"
+                  />
+                  </Image>
+                  <div className="date">Published on: <strong>{moment(publishedAt).format("MMM Do YY")}</strong></div>
+                </ArticleImage>
+              </div>
+              <div>
                 <Title>
                   <h2 className="title" onClick={() => handleBlogClick(blog)}>{title}</h2>
                 </Title>
-                <img
-                  src={urlToImage}
-                  alt="Could not load"
-                  onClick={() => handleBlogClick(blog)}
-                  width="600px"
-                  height="600px"
-                />
-
-                <Author>
+                  <Author>
                   <h4 className="author">{author}</h4>
-                </Author>
-                <p className="body">{content}</p>
+                  </Author>
+                  <Article>
+                    <p className="body">{content}</p>
+                  </Article>
               </div>
             </BlogItems>
           );
