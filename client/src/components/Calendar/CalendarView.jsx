@@ -10,7 +10,7 @@ const JobCalendar = ({ handleDayClick }) => {
   const [value, onChange] = useState(new Date());
 
   return (
-    <div className="react-calendar">
+    <div>
       <Calendar
         onChange={onChange}
         value={value}

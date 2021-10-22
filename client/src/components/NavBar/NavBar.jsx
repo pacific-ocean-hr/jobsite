@@ -2,8 +2,69 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+<<<<<<< HEAD
+// import logo from '../../../dist/assets/logo.png';
+
+function NavBar({ user }) {
+  return (
+    <Header>
+      <Nav>
+        <StyledLinks>
+          <NavLink to="/" exact className="styled-link">
+            Jobs
+          </NavLink>
+          <NavLink to="/blog" exact className="styled-link">
+            Blog
+          </NavLink>
+        </StyledLinks>
+        <NavLink
+          to="/"
+          exact
+          style={{ textDecoration: 'none', color: 'black', fontSize: '2em' }}
+        >
+          <img
+            src="./assets/logo.png"
+            alt="JobSite"
+            style={{ maxHeight: '70px', maxWidth: '150px' }}
+          />
+        </NavLink>
+        <StyledLinks>
+          {user === null && (
+            <div>
+              <NavLink to="/signup" exact className="styled-link">
+                Sign Up
+              </NavLink>
+              <NavLink to="/signin" exact className="styled-link">
+                <b>Sign In</b>
+              </NavLink>
+            </div>
+          )}
+          {user !== null && (
+            <>
+              <span>Welcome, {user.firstName}</span>
+              <NavLink to="/notes" exact className="styled-link">
+                Notes
+              </NavLink>
+              <NavLink to="/saved" exact className="styled-link">
+                Saved
+              </NavLink>
+              <NavLink to="/calendar" exact className="styled-link">
+                Calendar
+              </NavLink>
+              <NavLink to="/profile" exact className="styled-link">
+                Profile
+              </NavLink>
+            </>
+          )}
+        </StyledLinks>
+      </Nav>
+    </Header>
+  );
+}
+=======
 import styled from 'styled-components';
 import { FaRegUserCircle } from 'react-icons/fa';
+>>>>>>> main
 
 import Cookies from 'js-cookie';
 

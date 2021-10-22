@@ -21,23 +21,22 @@ export const GlobalStyle = createGlobalStyle`
   border-radius: 5px;
   border: 1px solid gray;
   float: right;
+  cursor: pointer;
   }
   .card {
-  box-shadow: 0 4px 2px -2px gray;
   margin: 10px;
   font-size: 14px;
-  border-radius: 8px;
+  border-radius: 6px;
   display: grid;
   background-color: white;
   padding: 20px;
   }
   .bigCard {
-    padding: 20px;
+  padding: 20px;
   max-height: 500px;
   overflow-y: scroll;
-  box-shadow: 0px 4px 4px -1px gray;
   background-color: white;
-  border-radius: 8px;
+  border-radius: 6px;
   }
 `;
 

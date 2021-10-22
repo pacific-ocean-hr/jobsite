@@ -47,6 +47,20 @@ const JobListing = ({
       </h3>
       <h6>
         Posted {moment(listing.publication_date).fromNow()}
+<<<<<<< HEAD
+        <a href={listing.url} target="_blank" rel="noreferrer">
+          <button
+            className="mainButton"
+            onMouseEnter={toggleHovered}
+            onMouseLeave={toggleHovered}
+            style={{
+              transform: `${hovered ? 'scale(1.15, 1.15)' : 'scale(1, 1)'}`,
+            }}
+          >
+            Apply
+          </button>
+        </a>
+=======
         {user && (
           <a href={listing.url} target="_blank" rel="noreferrer">
             <ApplyButton
@@ -61,6 +75,7 @@ const JobListing = ({
             </ApplyButton>
           </a>
         )}
+>>>>>>> main
       </h6>
     </Listing>
   );
@@ -77,6 +92,18 @@ const Listing = styled.div`
   justify-content: space-between;
 `;
 
+<<<<<<< HEAD
+// const ApplyButton = styled.button`
+//   padding: 8px;
+//   background-color: #49475b;
+//   color: white;
+//   font-size: 16px;
+//   border-radius: 5px;
+//   border: 1px solid gray;
+//   font-family: Sans-serif;
+//   justify-content: flex-end;
+// `;
+=======
 const ApplyButton = styled.button`
   padding: 8px;
   background-color: #49475b;
@@ -86,5 +113,6 @@ const ApplyButton = styled.button`
   border: 1px solid gray;
   justify-content: flex-end;
 `;
+>>>>>>> main
 
 export default JobListing;
