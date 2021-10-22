@@ -6,63 +6,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/button-has-type */
 import moment from 'moment';
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-
-const JobListing = ({
-  listing,
-  index,
-  setCurrentJob,
-  currentJobIndex,
-  user,
-}) => {
-  const [hovered, setHovered] = useState(false);
-  const [textHovered, setTextHovered] = useState(false);
-  const toggleHovered = () => {
-    setHovered(!hovered);
-  };
-  const toggleTextHovered = () => {
-    setTextHovered(!textHovered);
-  };
-
-  return (
-    <Listing
-      className="card"
-      onClick={() => setCurrentJob(index)}
-      onMouseEnter={toggleTextHovered}
-      onMouseLeave={toggleTextHovered}
-      style={{
-        color: `${textHovered || currentJobIndex === index ? 'black' : 'gray'}`,
-        border: `${
-          currentJobIndex === index ? '3px solid #799496' : 'solid thin #ACC196'
-        }`,
-      }}
-    >
-      <h3>
-        <img
-          src="../assets/Novartis.png"
-          style={{ maxHeight: '40px', maxWidth: '40px' }}
-        />
-        &nbsp;&nbsp;{listing.company_name}: {listing.title}
-      </h3>
-      <h6>
-        Posted {moment(listing.publication_date).fromNow()}
-        <a href={listing.url} target="_blank" rel="noreferrer">
-          <button
-            className="mainButton"
-            onMouseEnter={toggleHovered}
-            onMouseLeave={toggleHovered}
-            style={{
-              transform: `${hovered ? 'scale(1.15, 1.15)' : 'scale(1, 1)'}`,
-            }}
-          >
-            Apply
-          </button>
-        </a>
-      </h6>
-    </Listing>
-  );
-};
 
 const Listing = styled.div`
   border: ${(props) => props.borderColor};
@@ -92,7 +37,6 @@ const JobTitle = styled.p`
 `;
 
 const CompanyName = styled.p`
-
 `;
 
 const JobInfo = styled.div`
@@ -104,5 +48,45 @@ const DatePosted = styled.p`
   flex: 1;
   margin: 0;
 `;
+
+const ApplyButton = styled.button`
+  padding: 8px;
+  background-color: #49475b;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  justify-content: flex-end;
+`;
+
+const JobListing = ({ listing, index, setCurrentJob, currentJobIndex }) => {
+  const { company_name, title, publication_date, url, salary, job_type, category } = listing;
+  const isSelected = currentJobIndex === index;
+
+  return (
+    <Listing
+      className="card"
+      onClick={() => setCurrentJob(index)}
+      borderColor={isSelected ? '2px solid #799496' : '1px solid #ACC196'}
+    >
+      <JobTitle>{title}</JobTitle>
+      <CompanyName>{company_name}</CompanyName>
+      <JobInfo>
+        <img src="../assets/Novartis.png" />
+        <ul>
+          {category && <li>{category}</li>}
+          {job_type && <li>{job_type.replace('_', '-')}</li>}
+          {salary && <li>{salary}</li>}
+        </ul>
+      </JobInfo>
+      <ButtonFooter>
+        <DatePosted>{moment(publication_date).fromNow()}</DatePosted>
+        <a href={url} target="_blank" rel="noreferrer">
+          <ApplyButton className="mainButton">Apply</ApplyButton>
+        </a>
+      </ButtonFooter>
+    </Listing>
+  );
+};
 
 export default JobListing;
