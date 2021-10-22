@@ -8,57 +8,35 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const CalendarTask = ({ task, index, setCurrentJob, currentJobIndex }) => {
-  const [hovered, setHovered] = useState(false);
-
-  const toggleHovered = () => {
-    setHovered(!hovered);
-  };
-
-  return (
-    <Task
-      onClick={() => setCurrentJob(index)}
-      style={{
-        border: '2px solid #799496',
+const CalendarTask = ({ task, index, setCurrentJob, currentJobIndex }) => (
+  <Task
+    onClick={() => setCurrentJob(index)}
+  >
+    <span>
+      <span style={{ fontWeight: 'bold' }}>{task.task}</span> {task.time.includes('-') ? `from ${task.time}` : `at ${task.time}`}
+    </span>
+    <button
+      className="mainButton"
+      style={{ padding: '8px 4px, 8px, 4px',
+        marginTop: '2px',
+        fontSize: '14px',
       }}
     >
-      <span>
-        <span style={{ fontWeight: 'bold' }}>{task.task}</span> {task.time.includes('-') ? `from ${task.time}` : `at ${task.time}`}
-      </span>
-      <JoinMeeting
-        onMouseEnter={toggleHovered}
-        onMouseLeave={toggleHovered}
-        style={{
-          transform: `${hovered ? 'scale(1.15, 1.15)' : 'scale(1, 1)'}`,
-        }}
-      >
-        Join Meeting
-      </JoinMeeting>
-    </Task>
-  );
-};
+      Join Meeting
+    </button>
+  </Task>
+);
 
 const Task = styled.div`
-  box-shadow: 0 4px 2px -2px gray;
+  background-color: white;
+  border: 1px solid #49475B;
   font-family: Sans-serif;
+  font-size: 14px;
   color: black;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  padding: 5%;
-  margin-bottom: 20px;
+  border-radius: 6px;
+  margin: 10px;
   max-width: 50%;
-`;
-
-const JoinMeeting = styled.button`
-  padding: 2px;
-  background-color: #49475b;
-  color: white;
-  border-radius: 5px;
-  border: 1px solid gray;
-  font-family: Sans-serif;
-  justify-content: flex-end;
-  margin-top: 2px;
+  padding: 10px;
 `;
 
 export default CalendarTask;

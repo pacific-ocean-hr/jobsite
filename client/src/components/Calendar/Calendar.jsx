@@ -25,7 +25,14 @@ const CalendarView = () => {
     <CalendarContainer>
       <JobCalendar handleDayClick={handleDayClick} />
       {isTask ? (
-        <div>
+        <div style={{
+          maxHeight: 380,
+          maxWidth: '70%',
+          display: 'flex',
+          flexFlow: 'column wrap',
+          justifyContent: 'sapce-between',
+        }}
+        >
           {tasks.map((task, index) => (
             <CalendarTask
               currentJobIndex={currentJob}
@@ -47,10 +54,9 @@ export default CalendarView;
 
 const CalendarContainer = styles.div`
   display: grid;
-  grid-template-columns: 1.25fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 5%;
   padding: 5%;
-  padding-left: 10%;
   border-radius: 6px;
   background-color: #f2f2f2;
   margin-top: 40px;
