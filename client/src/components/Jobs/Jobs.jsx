@@ -35,11 +35,11 @@ const LoadingState = styled.div`
 
 const SPINNER_SIZE = 150;
 
-const Jobs = () => {
+const Jobs = ({ user }) => {
   const [params, setParams] = useState({});
   const [page, setPage] = useState(1);
   const [currentJob, setCurrentJob] = useState(0);
-  const { jobs, loading } = fetchJobs(params, page);
+  const { jobs, loading, hasData } = fetchJobs(params, page);
 
   const changeParams = (param) => {
     const newParams = { ...params };
@@ -50,7 +50,7 @@ const Jobs = () => {
 
   return (
     <div>
-      <SearchForm params={params} changeParams={changeParams} />
+      <SearchForm params={params} changeParams={changeParams} hasData={hasData} />
       <LoadingState>
         <ClipLoader color="#ACC196" loading={loading} size={SPINNER_SIZE} />
       </LoadingState>

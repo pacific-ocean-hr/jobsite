@@ -192,7 +192,7 @@ function SearchForm({ params, changeParams, hasData }) {
             {explevel}
           </FilterIcon>
           )}
-          {!hasData ? <div style={{ color: 'red' }}>No Data With That Filter</div> : null}
+          {!hasData && <div style={{ color: 'red' }}>No Data With That Filter</div>}
         </FilterIconContainer>
       </Filters>
     </>
