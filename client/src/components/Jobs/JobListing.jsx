@@ -6,7 +6,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/button-has-type */
 import moment from 'moment';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const JobListing = ({
