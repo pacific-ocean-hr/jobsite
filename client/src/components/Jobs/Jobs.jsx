@@ -1,6 +1,6 @@
+/* eslint-disable operator-linebreak */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { css } from '@emotion/react';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 import fetchJobs from '../../hooks/fetchJobs';
@@ -68,11 +68,12 @@ const Jobs = () => {
                   listing={listing}
                   index={index}
                   setCurrentJob={setCurrentJob}
+                  user={user}
                 />
               ))}
           </Listings>
         </div>
-        <Details className="bigCard">
+        <Details user={user} className="bigCard">
           {jobs[currentJob] && <JobDetails job={jobs[currentJob]} />}
         </Details>
         <Pagination page={page} setPage={setPage} />

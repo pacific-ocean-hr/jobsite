@@ -34,7 +34,7 @@ const App = () => {
           <NavBar user={user} />
           <Switch>
             <Route exact path="/">
-              <Jobs />
+              <Jobs user={user} />
             </Route>
             <Route exact path="/blog">
               <Blog />

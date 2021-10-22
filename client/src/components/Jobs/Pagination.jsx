@@ -12,12 +12,12 @@ const Pagination = ({ page, setPage }) => (
   <PaginationContainer>
     {/* back button */}
     {page !== 1 && (
-      <button type="button" className="mainButton" onClick={() => setPage(page - 1)}>
+      <button type="button" style={{ cursor: 'pointer' }} className="mainButton" onClick={() => setPage(page - 10)}>
         &#60; Go Back&nbsp;
       </button>
     )}
     {/* view more button */}
-    <button type="button" onClick={() => setPage(page + 1)} className="mainButton">
+    <button type="button" style={{ cursor: 'pointer' }}onClick={() => setPage(page + 10)} className="mainButton">
       &nbsp;View More &#62;
     </button>
   </PaginationContainer>

@@ -1,31 +1,32 @@
+/* eslint-disable react/no-danger */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-closing-tag-location */
+/* eslint-disable react/self-closing-comp */
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { BsHeart } from 'react-icons/bs';
 import { FaHeart } from 'react-icons/fa';
 
-const ListingHeader = styled.div`
-  align-items: center;
-  display: flex;
-  h2 {
-    flex: 1;
-  }
-`;
+const JobDetails = ({ job, user }) => {
+  const [heartColor, setHeartColor] = useState('white');
 
-const JobDetails = ({ job }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  // const onHeartClick = () => {
-  //   const color = heartColor === 'white' ? 'pink' : 'white';
-  //   set(color);
-  // };
+  const onHeartClick = () => {
+    const color = heartColor === 'white' ? 'pink' : 'white';
+    setHeartColor(color);
+  };
 
   return (
     <div>
-      <ListingHeader>
-        <h2>{job.title}</h2>
-        {isFavorite && <FaHeart color="pink" size={24} onClick={() => setIsFavorite(false)} />}
-        {!isFavorite && <BsHeart color="#49475B" size={24} onClick={() => setIsFavorite(true)} />}
-      </ListingHeader>
+      <h2>
+        {job.title}
+        {user && (
+          <FaHeart
+            fill={heartColor}
+            stroke="black"
+            strokeWidth="20px"
+            style={{ cursor: 'pointer' }}
+            onClick={onHeartClick}
+          />
+        )}
+      </h2>
       <div
         dangerouslySetInnerHTML={{
           __html: job.description,

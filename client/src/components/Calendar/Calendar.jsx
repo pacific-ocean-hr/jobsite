@@ -61,12 +61,12 @@ const CalendarContainer = styles.div`
 const Calendar = styles.div`
   margin-top: auto;
   margin-bottom: auto;
-  margin-left: 30%;
+  margin-left: 20%;
 `;
 
 const Tasks = styles.div`
   background-color: #f2f2f2;
-  margin-right: 40%;
+  margin-right: 20%;
 `;
 
 const NoEvents = styles.h2`
