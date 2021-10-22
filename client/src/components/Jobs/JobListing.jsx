@@ -6,7 +6,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/button-has-type */
 import moment from 'moment';
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const JobListing = ({
@@ -47,7 +47,6 @@ const JobListing = ({
       </h3>
       <h6>
         Posted {moment(listing.publication_date).fromNow()}
-<<<<<<< HEAD
         <a href={listing.url} target="_blank" rel="noreferrer">
           <button
             className="mainButton"
@@ -60,59 +59,50 @@ const JobListing = ({
             Apply
           </button>
         </a>
-=======
-        {user && (
-          <a href={listing.url} target="_blank" rel="noreferrer">
-            <ApplyButton
-              className="mainButton"
-              onMouseEnter={toggleHovered}
-              onMouseLeave={toggleHovered}
-              style={{
-                transform: `${hovered ? 'scale(1.15, 1.15)' : 'scale(1, 1)'}`,
-              }}
-            >
-              Apply
-            </ApplyButton>
-          </a>
-        )}
->>>>>>> main
       </h6>
     </Listing>
   );
 };
 
 const Listing = styled.div`
-  box-shadow: 0 4px 2px -2px gray;
-  margin: 10px;
-  color: gray;
-  border-radius: 8px;
+  border: ${(props) => props.borderColor};
+  color: ${({ theme }) => theme.color.purple};
+  border-radius: 6px;
   display: flex;
   flex-direction: row;
-  flex-flow: row wrap;
-  justify-content: space-between;
+  &:hover {
+    color: black;
+  }
+  P {
+    margin: 3px;
+  }
+  img {
+    height: 50px;
+  }
 `;
 
-<<<<<<< HEAD
-// const ApplyButton = styled.button`
-//   padding: 8px;
-//   background-color: #49475b;
-//   color: white;
-//   font-size: 16px;
-//   border-radius: 5px;
-//   border: 1px solid gray;
-//   font-family: Sans-serif;
-//   justify-content: flex-end;
-// `;
-=======
-const ApplyButton = styled.button`
-  padding: 8px;
-  background-color: #49475b;
-  color: white;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid gray;
-  justify-content: flex-end;
+const ButtonFooter = styled.div`
+  align-items: end;
+  display: flex;
 `;
->>>>>>> main
+
+const JobTitle = styled.p`
+  font-size: 16px;
+  font-weight: 600;
+`;
+
+const CompanyName = styled.p`
+
+`;
+
+const JobInfo = styled.div`
+  align-items: center;
+  display: flex;
+`;
+
+const DatePosted = styled.p`
+  flex: 1;
+  margin: 0;
+`;
 
 export default JobListing;

@@ -14,29 +14,33 @@ export const GlobalStyle = createGlobalStyle`
     max-width: 1280px;
   }
   .mainButton {
-    padding: 7px;
-  background-color: #49475B;
-  color: white;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid gray;
-  float: right;
-  cursor: pointer;
+    background-color: ${({ theme }) => theme.color.teal};
+    border: ${({ theme }) => `1px solid ${theme.color.purple}`};
+    border-radius: 5px;
+    color: ${({ theme }) => theme.color.white};
+    font-size: 14px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    &:hover {
+      background-color: ${({ theme }) => theme.color.green};
+      border: ${({ theme }) => `1px solid ${theme.color.purple}`};
+      color: ${({ theme }) => theme.color.purple};
+    }
   }
   .card {
-  margin: 10px;
-  font-size: 14px;
-  border-radius: 6px;
-  display: grid;
-  background-color: white;
-  padding: 20px;
+    box-shadow: 1px 1px 2px rgb(121, 148, 150, .2);
+    margin-bottom: 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    display: grid;
+    background-color: white;
+    padding: 12px;
   }
   .bigCard {
-  padding: 20px;
-  max-height: 500px;
-  overflow-y: scroll;
-  background-color: white;
-  border-radius: 6px;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 1px 1px 2px rgba(121, 148, 150, .2);
+    padding: 24px;
   }
 `;
 

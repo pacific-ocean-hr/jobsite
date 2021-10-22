@@ -1,9 +1,6 @@
 /* eslint-disable no-unused-expressions */
-<<<<<<< HEAD
-=======
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-undef */
->>>>>>> main
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 

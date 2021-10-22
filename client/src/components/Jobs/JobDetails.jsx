@@ -31,7 +31,7 @@ const JobDetails = ({ job, user }) => {
         dangerouslySetInnerHTML={{
           __html: job.description,
         }}
-      ></div>
+      />
     </div>
   );
 };

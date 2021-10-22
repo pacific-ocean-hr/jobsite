@@ -2,6 +2,46 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaRegWindowClose } from 'react-icons/fa';
 
+const Form = styled.form`
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+  margin-top: 20px;
+`;
+
+const Input = styled.input`
+  border: ${({ theme }) => `1px solid ${theme.color.teal}`};
+  border-radius: 6px;
+  padding: 11px;
+  width: 300px;
+`;
+
+const FilterOptions = styled.select`
+  padding: 6px;
+  margin: 0 20px;
+`;
+
+const Filters = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 24px 0;
+  position: relative;
+`;
+
+const FilterIconContainer = styled.div`
+  position: absolute;
+  left: 0;
+`;
+
+const FilterIcon = styled.button`
+  cursor: pointer;
+  margin: 0 12px;
+  padding: 3px 6px;
+`;
+
 const SearchBank = (key, item) => {
   const searchBank = {
     salary: {
@@ -82,7 +122,7 @@ function SearchForm({ params, changeParams, hasData }) {
         style={{ display: 'flex', justifyContent: 'center', color: '#49475B' }}
       >
         <h4 style={{ fontStyle: 'italic' }}>
-          "Connecting people with jobs and jobs with people."
+          &#34;Connecting people with jobs and jobs with people.&#34;
         </h4>
       </div>
       <Form action="">
@@ -95,6 +135,7 @@ function SearchForm({ params, changeParams, hasData }) {
           />
           &nbsp;&nbsp;
           <button
+            type="button"
             className="mainButton"
             onClick={handleSearch}
           >
@@ -131,68 +172,31 @@ function SearchForm({ params, changeParams, hasData }) {
           <option value="Mid">Mid</option>
           <option value="Senior">Senior</option>
         </FilterOptions>
+        <FilterIconContainer>
+          {salary && (
+          <FilterIcon onClick={() => setSalary('')}>
+            <FaRegWindowClose style={{ paddingRight: 10 }} />
+            {' '}
+            {salary}
+          </FilterIcon>
+          )}
+          {jobType && (
+          <FilterIcon onClick={() => setJobType('')}>
+            <FaRegWindowClose style={{ paddingRight: 10 }} />
+            {jobType}
+          </FilterIcon>
+          )}
+          {explevel && (
+          <FilterIcon onClick={() => setExpLevel('')}>
+            <FaRegWindowClose style={{ paddingRight: 10 }} />
+            {explevel}
+          </FilterIcon>
+          )}
+          {!hasData && <div style={{ color: 'red' }}>No Data With That Filter</div>}
+        </FilterIconContainer>
       </Filters>
-      {salary && (
-      <SearchButton onClick={() => setSalary('')}>
-        <FaRegWindowClose style={{ paddingRight: 10 }} />
-        {' '}
-        {salary}
-      </SearchButton>
-      )}
-      {jobType && (
-      <SearchButton onClick={() => setJobType('')}>
-        <FaRegWindowClose style={{ paddingRight: 10 }} />
-        {jobType}
-      </SearchButton>
-      )}
-      {explevel && (
-      <SearchButton onClick={() => setExpLevel('')}>
-        <FaRegWindowClose style={{ paddingRight: 10 }} />
-        {explevel}
-      </SearchButton>
-      )}
-      {!hasData ? <div style={{ color: 'red' }}>No Data With That Filter</div> : null}
     </>
   );
 }
-
-const Form = styled.form`
-  display: flex;
-  align-items: center;
-  position: relative;
-  justify-content: space-around;
-  flex-wrap: nowrap;
-  margin-top: 20px;
-`;
-
-const Input = styled.input`
-  height: 25px;
-  width: 300px;
-`;
-
-const FilterOptions = styled.select`
-  height: 25px;
-  padding: 2px;
-  margin-right: 5px;
-`;
-
-const Filters = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  flex-wrap: nowrap;
-  margin-top: 10px;
-  margin-right: 95px;
-`;
-
-const SearchButton = styled.button`
-  display: row;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-  cursor: pointer;
-  border-radius: 10%;
-`;
 
 export default SearchForm;
