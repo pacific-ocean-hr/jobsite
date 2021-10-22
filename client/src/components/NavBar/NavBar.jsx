@@ -55,7 +55,7 @@ const NavDropdown = styled.ul`
   display: ${(props) => props.isVisible};
   list-style: none;
   margin: 0;
-  padding: 12px;
+  padding: 6px;
   position: absolute;
   right: -20px;
   text-align: center;
@@ -63,7 +63,7 @@ const NavDropdown = styled.ul`
   width: fit-content;
   li {
     cursor: pointer;
-    padding: 6px;
+    padding: 12px;
     &:hover {
       background-color: #bbb;
       a {
