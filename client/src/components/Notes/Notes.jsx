@@ -12,8 +12,10 @@ const axios = require('axios');
 
 const Notes = ({ user }) => {
   const [textArea, setTextArea] = useState(false);
-  const [edit, setEdit] = useState(false);
+  const [edit, setEdit] = useState(''); // id
   const [notes, setNotes] = useState([]);
+  const [newTitle, setNewTitle] = useState('');
+  const [newBody, setNewBody] = useState('');
 
   const getNotes = () => {
     axios
@@ -48,6 +50,7 @@ const Notes = ({ user }) => {
     axios
       .put(`http://localhost:4007/notes/${noteId}`, newContent)
       .then((response) => {
+        setEdit(false);
         console.log(response);
       })
       .catch((error) => {
@@ -70,24 +73,26 @@ const Notes = ({ user }) => {
     setTextArea(!textArea);
   };
 
-  const openEdit = () => {
-    setEdit(!edit);
-  };
-
   useEffect(() => {
     user !== null ? getNotes() : null;
   }, [user]);
 
   return (
-    <div style={{ paddingLeft: '15%', paddingRight: '15%' }}>
-      <div className="card" style={{ border: '1px solid #ACC196' }}>
-        <button type="submit" className="mainButton" onClick={openTextArea}>
+    <div style={{
+      padding: '5% 15% 5% 15%',
+      marginTop: '40px',
+      backgroundColor: '#f2f2f2',
+      maxHeight: '600px',
+    }}
+    >
+      <div className="card">
+        <button type="submit" className="mainButton" style={{ backgroundColor: '#ACC196' }} onClick={openTextArea}>
           {textArea ? 'Cancel' : 'Make a new note +'}{' '}
         </button>
         {textArea && (
           <form
             style={{
-              marginTop: '15px',
+              margin: '2%',
               display: 'flex',
               flexDirection: 'column',
             }}
@@ -101,48 +106,77 @@ const Notes = ({ user }) => {
             <br />
             <label>Content: </label>
             <textarea style={{ marginBottom: '15px' }} name="body" />
-            <button className="mainButton" type="submit">
+            <button className="mainButton" style={{ backgroundColor: '#ACC196' }} type="submit">
               Create
             </button>
           </form>
         )}
       </div>
-      {user !== null &&
-        notes.length !== 0 &&
-        notes.map((note) => (
-          <div key={note._id} className="card">
-            <h4>
-              {note.title}
+      <div style={{
+        display: 'flex',
+        flexFlow: 'row wrap',
+        justifyContent: 'center',
+      }}
+      >
+        {user !== null &&
+          notes.length !== 0 &&
+          notes.map((note) => (
+            <div key={note._id} className="card" style={{ border: '1px solid #49475B', maxWidth: '20%' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <button
+                  type="button"
+                  onClick={() => removeNote(note._id)}
+                  className="mainButton"
+                  style={{ width: 50, height: 40, justifySelf: 'left' }}
+                >
+                  x
+                </button>
+                <button
+                  type="button"
+                  onClick={edit === note._id ? () => editNote(note._id, { newTitle, newBody }) : () => setEdit(note._id)}
+                  className="mainButton"
+                  style={{
+                    backgroundColor: '#799496',
+                    width: `${edit === note._id ? '60px' : '50px'}`,
+                    height: '40px',
+                    justifySelf: 'right',
+                  }}
+                >
+                  {edit === note._id ? 'Save' : '✏️'}
+                </button>
+              </div>
               <span
+                contentEditable={edit === note._id ? 'true' : 'false'}
+                onInput={(event) => {
+                  setNewTitle(event.currentTarget.textContent);
+                }}
+                style={{ fontWeight: 'bold', paddingTop: '5px', paddingBottom: '5px' }}
+              >
+                {note.title}
+              </span>
+              <span
+                contentEditable={edit === note._id ? 'true' : 'false'}
+                onInput={(event) => {
+                  setNewBody(event.currentTarget.textContent);
+                }}
+                style={{ border: `${edit === note._id ? '1px solid gray' : 'none'}`, borderRadius: '4px' }}
+              >{note.body}
+              </span>
+              <span
+                contentEditable="false"
                 style={{
                   paddingLeft: '10px',
                   color: '#799496',
                   fontSize: '12px',
                   fontStyle: 'italic',
+                  justifySelf: 'flex-end',
                 }}
               >
                 {moment(note.created_at).fromNow()}
               </span>
-              <button
-                type="button"
-                onClick={openEdit}
-                className="mainButton"
-                style={{ backgroundColor: '#799496', width: 50, height: 40 }}
-              >
-                ✏️
-              </button>
-            </h4>
-            <span>{note.body}</span>
-            <button
-              type="button"
-              onClick={() => removeNote(note._id)}
-              className="mainButton"
-              style={{ width: 50, height: 40, justifySelf: 'right' }}
-            >
-              X
-            </button>
-          </div>
-        ))}
+            </div>
+          ))}
+      </div>
     </div>
   );
 };

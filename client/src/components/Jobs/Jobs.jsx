@@ -35,6 +35,7 @@ const LoadingState = styled.div`
 
 const SPINNER_SIZE = 150;
 
+// eslint-disable-next-line react/prop-types
 const Jobs = ({ user }) => {
   const [params, setParams] = useState({});
   const [page, setPage] = useState(1);

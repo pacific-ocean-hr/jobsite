@@ -8,52 +8,37 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const CalendarTask = ({ task, index, setCurrentJob, currentJobIndex }) => {
-  const [hovered, setHovered] = useState(false);
-  const [textHovered, setTextHovered] = useState(false);
-
-  const toggleHovered = () => {
-    setHovered(!hovered);
-  };
-  const toggleTextHovered = () => {
-    setTextHovered(!textHovered);
-  };
-
-  return (
-    <Task
-      className="card"
-      onClick={() => setCurrentJob(index)}
-      onMouseEnter={toggleTextHovered}
-      onMouseLeave={toggleTextHovered}
-      style={{
-        color: `${textHovered || currentJobIndex === index ? 'black' : 'gray'}`,
-        border: `${
-          currentJobIndex === index ? '3px solid #799496' : 'solid thin #ACC196'
-        }`,
+const CalendarTask = ({ task, index, setCurrentJob, currentJobIndex }) => (
+  <Task
+    onClick={() => setCurrentJob(index)}
+  >
+    <span>
+      <span style={{ fontWeight: 'bold' }}>{task.task}</span> {task.time.includes('-') ? `from ${task.time}` : `at ${task.time}`}
+    </span>
+    <button
+      className="mainButton"
+      style={{ padding: '8px 4px, 8px, 4px',
+        marginTop: '2px',
+        fontSize: '14px',
       }}
     >
-      <h3>
-        <img
-          src="../assets/Novartis.png"
-          style={{ maxHeight: '40px', maxWidth: '40px' }}
-        />
-        &nbsp;&nbsp;{task.time}: {task.task}
-      </h3>
-      <JoinMeeting
-        className="mainButton"
-        onMouseEnter={toggleHovered}
-        onMouseLeave={toggleHovered}
-        style={{
-          transform: `${hovered ? 'scale(1.15, 1.15)' : 'scale(1, 1)'}`,
-        }}
-      >
-        Join Meeting
-      </JoinMeeting>
-    </Task>
-  );
-};
+      Join Meeting
+    </button>
+  </Task>
+);
 
 const Task = styled.div`
+<<<<<<< HEAD
+  background-color: white;
+  border: 1px solid #49475B;
+  font-family: Sans-serif;
+  font-size: 14px;
+  color: black;
+  border-radius: 6px;
+  margin: 10px;
+  max-width: 50%;
+  padding: 10px;
+=======
   box-shadow: 0 4px 2px -2px gray;
   margin: 10px;
   color: gray;
@@ -71,6 +56,7 @@ const JoinMeeting = styled.button`
   border-radius: 5px;
   border: 1px solid gray;
   justify-content: flex-end;
+>>>>>>> main
 `;
 
 export default CalendarTask;

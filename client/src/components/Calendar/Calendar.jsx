@@ -23,11 +23,16 @@ const CalendarView = () => {
 
   return (
     <CalendarContainer>
-      <Calendar>
-        <JobCalendar handleDayClick={handleDayClick} />
-      </Calendar>
+      <JobCalendar handleDayClick={handleDayClick} />
       {isTask ? (
-        <Tasks>
+        <div style={{
+          maxHeight: 380,
+          maxWidth: '70%',
+          display: 'flex',
+          flexFlow: 'column wrap',
+          justifyContent: 'sapce-between',
+        }}
+        >
           {tasks.map((task, index) => (
             <CalendarTask
               currentJobIndex={currentJob}
@@ -37,7 +42,7 @@ const CalendarView = () => {
               setCurrentJob={setCurrentJob}
             />
           ))}
-        </Tasks>
+        </div>
       ) : (
         <NoEvents>No Events Today!</NoEvents>
       )}
@@ -49,15 +54,16 @@ export default CalendarView;
 
 const CalendarContainer = styles.div`
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 20px;
-  padding: 40px;
-  padding-top: 20px;
+  grid-template-columns: 1fr 1fr;
+  gap: 5%;
+  padding: 5%;
   border-radius: 6px;
   background-color: #f2f2f2;
   margin-top: 40px;
 `;
 
+<<<<<<< HEAD
+=======
 const Calendar = styles.div`
   margin-top: auto;
   margin-bottom: auto;
@@ -69,7 +75,8 @@ const Tasks = styles.div`
   margin-right: 20%;
 `;
 
+>>>>>>> main
 const NoEvents = styles.h2`
-  margin-top: auto;
-  margin-bottom: auto;
+  margin-top: 25%;
+  color: #49475b;
 `;

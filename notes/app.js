@@ -22,8 +22,8 @@ app.post('/notes', (req, res) => {
 
 app.put('/notes/:id', (req, res) => {
   Note.findOne({ _id: req.params.id }, (err, note) => {
-    note.title = req.body.title;
-    note.body = req.body.body;
+    note.title = req.body.newTitle;
+    note.body = req.body.newBody;
     note.save((err) => {
       err ? res.sendStatus(418) : res.sendStatus(201);
     });
