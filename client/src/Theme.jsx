@@ -23,7 +23,7 @@ export const GlobalStyle = createGlobalStyle`
     float: right;
   }
   .card {
-    box-shadow: 0 4px 2px -2px gray;
+    box-shadow: 1px 1px 2px rgb(121, 148, 150, .2);
     margin-bottom: 12px;
     font-size: 14px;
     border-radius: 8px;
@@ -32,12 +32,10 @@ export const GlobalStyle = createGlobalStyle`
     padding: 12px;
   }
   .bigCard {
-    padding: 12px;
-    // max-height: 500px;
-    // overflow-y: scroll;
-    // box-shadow: 0px 4px 4px -1px gray;
     background-color: white;
     border-radius: 6px;
+    box-shadow: 1px 1px 2px rgb(121, 148, 150, .2);
+    padding: 12px;
   }
 `;
 
