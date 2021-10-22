@@ -44,8 +44,8 @@ const Jobs = () => {
         <div>
           {/* <Pagination page={page} setPage={setPage} /> */}
           <Listings>
-            {jobs &&
-              jobs.map((listing, index) => (
+            {jobs
+              && jobs.map((listing, index) => (
                 <JobListing
                   currentJobIndex={currentJob}
                   // eslint-disable-next-line react/no-array-index-key

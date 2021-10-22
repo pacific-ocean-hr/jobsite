@@ -21,10 +21,27 @@ const Listing = styled.div`
   P {
     margin: 3px;
   }
+  img {
+    height: 50px;
+  }
 `;
 
 const ButtonFooter = styled.div`
   align-items: end;
+  display: flex;
+`;
+
+const JobTitle = styled.p`
+  font-size: 16px;
+  font-weight: 600;
+`;
+
+const CompanyName = styled.p`
+
+`;
+
+const JobInfo = styled.div`
+  align-items: center;
   display: flex;
 `;
 
@@ -44,7 +61,7 @@ const ApplyButton = styled.button`
 `;
 
 const JobListing = ({ listing, index, setCurrentJob, currentJobIndex }) => {
-  const { company_name, title, publication_date, url } = listing;
+  const { company_name, title, publication_date, url, salary, job_type, category } = listing;
   const isSelected = currentJobIndex === index;
 
   return (
@@ -53,13 +70,16 @@ const JobListing = ({ listing, index, setCurrentJob, currentJobIndex }) => {
       onClick={() => setCurrentJob(index)}
       borderColor={isSelected ? '2px solid #799496' : '1px solid #ACC196'}
     >
-      <img
-        src="../assets/Novartis.png"
-        style={{ maxHeight: '40px', maxWidth: '40px' }}
-      />
-      <p>{title}</p>
-      <p>{company_name}</p>
-
+      <JobTitle>{title}</JobTitle>
+      <CompanyName>{company_name}</CompanyName>
+      <JobInfo>
+        <img src="../assets/Novartis.png" />
+        <ul>
+          {category && <li>{category}</li>}
+          {job_type && <li>{job_type.replace('_', '-')}</li>}
+          {salary && <li>{salary}</li>}
+        </ul>
+      </JobInfo>
       <ButtonFooter>
         <DatePosted>{moment(publication_date).fromNow()}</DatePosted>
         <a href={url} target="_blank" rel="noreferrer">
