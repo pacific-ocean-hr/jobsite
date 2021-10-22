@@ -25,18 +25,15 @@ const Jobs = ({ user }) => {
   };
 
   useEffect(async () => {
-    console.log(user);
     if (user) {
       const response = await axios.get(
         `http://localhost:4008/saved/id/${user.id}`
       );
       await setSaveJob(response.data);
       let color = false;
-      console.log("saveJob", saveJob, response.data);
       const fav = response.data
         .map((item) => item.job_id)
         .filter((id) => id === jobs[currentJob].job_id);
-      console.log("pinkHeart", fav);
       if (fav.length > 0) {
         color = true;
       }
