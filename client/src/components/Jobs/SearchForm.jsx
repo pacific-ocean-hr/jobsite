@@ -12,7 +12,9 @@ const Form = styled.form`
 `;
 
 const Input = styled.input`
-  height: 25px;
+  border: ${({ theme }) => `1px solid ${theme.color.teal}`};
+  border-radius: 6px;
+  padding: 11px;
   width: 300px;
 `;
 
