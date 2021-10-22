@@ -10,7 +10,7 @@ const Jobs = () => {
   const [params, setParams] = useState({});
   const [page, setPage] = useState(1);
   const [currentJob, setCurrentJob] = useState(0);
-  const { jobs } = fetchJobs(params, page);
+  const { jobs, hasData } = fetchJobs(params, page);
 
   const changeParams = (param) => {
     const newParams = { ...params };
@@ -21,7 +21,7 @@ const Jobs = () => {
 
   return (
     <div>
-      <SearchForm params={params} changeParams={changeParams} />
+      <SearchForm params={params} changeParams={changeParams} hasData={hasData} />
       <JobPage>
         <div>
           <Pagination page={page} setPage={setPage} />
