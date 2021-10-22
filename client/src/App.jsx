@@ -49,7 +49,7 @@ const App = () => {
               <UserProfile user={user} />
             </Route>
             <Route exact path="/calendar">
-              <CalendarView />
+              <CalendarView user={user} />
             </Route>
             <Route exact path="/notes">
               <Notes user={user} />

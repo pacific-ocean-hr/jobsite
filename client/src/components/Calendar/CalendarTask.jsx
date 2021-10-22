@@ -7,10 +7,12 @@
 /* eslint-disable react/button-has-type */
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import CalendarEventModal from './CalendarEventModal';
 
-const CalendarTask = ({ task, index, setCurrentJob, currentJobIndex }) => {
+const CalendarTask = ({ event, index, setCurrentJob, currentJobIndex, deleteEvent, editEvent, date }) => {
   const [hovered, setHovered] = useState(false);
   const [textHovered, setTextHovered] = useState(false);
+  const [show, setShow] = useState(false);
 
   const toggleHovered = () => {
     setHovered(!hovered);
@@ -19,8 +21,12 @@ const CalendarTask = ({ task, index, setCurrentJob, currentJobIndex }) => {
     setTextHovered(!textHovered);
   };
 
+  const startTime = event.start_time.split(':')[0] > 12 ? `${event.start_time.split(':')[0] - 12}:${event.start_time.split(':')[1]}pm` : event.start_time.concat('am');
+  const endTime = event.end_time.split(':')[0] > 12 ? `${event.end_time.split(':')[0] - 12}:${event.end_time.split(':')[1]}pm` : event.end_time.concat('am');
+  const eventTime = startTime.concat(' - ', endTime);
+
   return (
-    <Task
+    <Event
       className="card"
       onClick={() => setCurrentJob(index)}
       onMouseEnter={toggleTextHovered}
@@ -37,23 +43,40 @@ const CalendarTask = ({ task, index, setCurrentJob, currentJobIndex }) => {
           src="../assets/Novartis.png"
           style={{ maxHeight: '40px', maxWidth: '40px' }}
         />
-        &nbsp;&nbsp;{task.time}: {task.task}
+        &nbsp;&nbsp;{eventTime}: {event.title}
+        <p>{event.body}</p>
       </h3>
-      <JoinMeeting
-        className="mainButton"
-        onMouseEnter={toggleHovered}
-        onMouseLeave={toggleHovered}
-        style={{
-          transform: `${hovered ? 'scale(1.15, 1.15)' : 'scale(1, 1)'}`,
-        }}
-      >
-        Join Meeting
-      </JoinMeeting>
-    </Task>
+      <ButtonContainer>
+        <EditEvent
+          className="mainButton"
+          onClick={() => setShow(true)}
+        >
+          Edit Event
+        </EditEvent>
+        <CalendarEventModal
+          show={show}
+          date={date}
+          setShow={setShow}
+          eventAction={editEvent}
+          id={event.id}
+          title={event.title}
+          start={event.start_time}
+          end={event.end_time}
+          body={event.body}
+          isEditing
+        />
+        <DeleteEvent
+          className="mainButton"
+          onClick={() => deleteEvent(date, event.id)}
+        >
+          Delete Event
+        </DeleteEvent>
+      </ButtonContainer>
+    </Event>
   );
 };
 
-const Task = styled.div`
+const Event = styled.div`
   box-shadow: 0 4px 2px -2px gray;
   margin: 10px;
   font-family: Sans-serif;
@@ -64,7 +87,11 @@ const Task = styled.div`
   justify-content: space-between;
 `;
 
-const JoinMeeting = styled.button`
+const ButtonContainer = styled.div`
+
+`;
+
+const EditEvent = styled.button`
   padding: 8px;
   background-color: #49475b;
   color: white;
@@ -72,7 +99,19 @@ const JoinMeeting = styled.button`
   border-radius: 5px;
   border: 1px solid gray;
   font-family: Sans-serif;
-  justify-content: flex-end;
+  margin-left: 10px;
+  cursor: pointer;
+`;
+
+const DeleteEvent = styled.button`
+  padding: 8px;
+  background-color: #49475b;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  font-family: Sans-serif;
+  cursor: pointer;
 `;
 
 export default CalendarTask;
