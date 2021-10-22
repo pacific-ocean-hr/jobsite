@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 
@@ -51,20 +54,18 @@ const Saved = ({ user }) => {
             <h3>Interested</h3>
             {saved
               .filter((item) => item.level === 'interested')
-              .map((savedItem) => {
-                return (
-                  <div key={savedItem._id} className="card">
-                    {item}
-                    <button
-                      type="button"
-                      onClick={() => removeSaved(savedItem._id)}
-                      className="mainButton"
-                    >
-                      X
-                    </button>
-                  </div>
-                );
-              })}
+              .map((savedItem) => (
+                <div key={savedItem._id} className="card">
+                  {item}
+                  <button
+                    type="button"
+                    onClick={() => removeSaved(savedItem._id)}
+                    className="mainButton"
+                  >
+                    X
+                  </button>
+                </div>
+              ))}
           </div>
         )}
       </div>
