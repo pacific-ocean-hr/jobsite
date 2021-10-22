@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { css } from '@emotion/react';
+import ClipLoader from 'react-spinners/ClipLoader';
+
 import fetchJobs from '../../hooks/fetchJobs';
+
 import JobListing from './JobListing';
 import JobDetails from './JobDetails';
 import Pagination from './Pagination';
@@ -24,6 +28,13 @@ const Details = styled.div`
   font-size: 14px;
 `;
 
+const LoadingState = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const SPINNER_SIZE = 150;
+
 const Jobs = () => {
   const [params, setParams] = useState({});
   const [page, setPage] = useState(1);
@@ -40,7 +51,9 @@ const Jobs = () => {
   return (
     <div>
       <SearchForm params={params} changeParams={changeParams} />
-      {loading && <div>Great jobs coming your way!</div>}
+      <LoadingState>
+        <ClipLoader color="#ACC196" loading={loading} size={SPINNER_SIZE} />
+      </LoadingState>
       {!loading && (
       <JobPage>
         <div>
