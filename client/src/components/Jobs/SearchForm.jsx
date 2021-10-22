@@ -19,25 +19,27 @@ const Input = styled.input`
 `;
 
 const FilterOptions = styled.select`
-  height: 25px;
-  padding: 2px;
-  margin-right: 5px;
+  padding: 6px;
+  margin: 0 20px;
 `;
 
 const Filters = styled.div`
+  align-items: center;
   display: flex;
   justify-content: center;
   padding: 24px 0;
   position: relative;
 `;
 
-const SearchButton = styled.button`
-  display: row;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
+const FilterIconContainer = styled.div`
+  position: absolute;
+  left: 0;
+`;
+
+const FilterIcon = styled.button`
   cursor: pointer;
-  border-radius: 10%;
+  margin: 0 12px;
+  padding: 3px 6px;
 `;
 
 const SearchBank = (key, item) => {
@@ -170,26 +172,28 @@ function SearchForm({ params, changeParams }) {
           <option value="Mid">Mid</option>
           <option value="Senior">Senior</option>
         </FilterOptions>
+        <FilterIconContainer>
+          {salary && (
+          <FilterIcon onClick={() => setSalary('')}>
+            <FaRegWindowClose style={{ paddingRight: 10 }} />
+            {' '}
+            {salary}
+          </FilterIcon>
+          )}
+          {jobType && (
+          <FilterIcon onClick={() => setJobType('')}>
+            <FaRegWindowClose style={{ paddingRight: 10 }} />
+            {jobType}
+          </FilterIcon>
+          )}
+          {explevel && (
+          <FilterIcon onClick={() => setExpLevel('')}>
+            <FaRegWindowClose style={{ paddingRight: 10 }} />
+            {explevel}
+          </FilterIcon>
+          )}
+        </FilterIconContainer>
       </Filters>
-      {salary && (
-      <SearchButton onClick={() => setSalary('')}>
-        <FaRegWindowClose style={{ paddingRight: 10 }} />
-        {' '}
-        {salary}
-      </SearchButton>
-      )}
-      {jobType && (
-      <SearchButton onClick={() => setJobType('')}>
-        <FaRegWindowClose style={{ paddingRight: 10 }} />
-        {jobType}
-      </SearchButton>
-      )}
-      {explevel && (
-      <SearchButton onClick={() => setExpLevel('')}>
-        <FaRegWindowClose style={{ paddingRight: 10 }} />
-        {explevel}
-      </SearchButton>
-      )}
     </>
   );
 }
