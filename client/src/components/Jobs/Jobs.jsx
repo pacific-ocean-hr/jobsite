@@ -28,7 +28,7 @@ const Jobs = () => {
   const [params, setParams] = useState({});
   const [page, setPage] = useState(1);
   const [currentJob, setCurrentJob] = useState(0);
-  const { jobs } = fetchJobs(params, page);
+  const { jobs, loading } = fetchJobs(params, page);
 
   const changeParams = (param) => {
     const newParams = { ...params };
@@ -40,6 +40,8 @@ const Jobs = () => {
   return (
     <div>
       <SearchForm params={params} changeParams={changeParams} />
+      {loading && <div>Great jobs coming your way!</div>}
+      {!loading && (
       <JobPage>
         <div>
           {/* <Pagination page={page} setPage={setPage} /> */}
@@ -62,6 +64,7 @@ const Jobs = () => {
         </Details>
         <Pagination page={page} setPage={setPage} />
       </JobPage>
+      )}
     </div>
   );
 };
