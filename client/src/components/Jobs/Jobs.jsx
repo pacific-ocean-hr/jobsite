@@ -21,7 +21,7 @@ const Listings = styled.div`
 
 const Details = styled.div`
   border: 1px solid #799496;
-  font-size: 12px;
+  font-size: 14px;
 `;
 
 const Jobs = () => {

@@ -39,8 +39,8 @@ export const GlobalStyle = createGlobalStyle`
   .bigCard {
     background-color: white;
     border-radius: 6px;
-    box-shadow: 1px 1px 2px rgb(121, 148, 150, .2);
-    padding: 12px;
+    box-shadow: 1px 1px 2px rgba(121, 148, 150, .2);
+    padding: 24px;
   }
 `;
 

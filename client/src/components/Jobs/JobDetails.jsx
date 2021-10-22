@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { BsHeart } from 'react-icons/bs';
 import { FaHeart } from 'react-icons/fa';
 
-
 const ListingHeader = styled.div`
   align-items: center;
   display: flex;
