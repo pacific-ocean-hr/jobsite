@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import fetchJobs from '../../hooks/fetchJobs';
@@ -6,11 +7,12 @@ import JobDetails from './JobDetails';
 import Pagination from './Pagination';
 import SearchForm from './SearchForm';
 
-const Jobs = () => {
+// eslint-disable-next-line react/prop-types
+const Jobs = ({ user }) => {
   const [params, setParams] = useState({});
   const [page, setPage] = useState(1);
   const [currentJob, setCurrentJob] = useState(0);
-  const { jobs } = fetchJobs(params, page);
+  const { jobs, hasData } = fetchJobs(params, page);
 
   const changeParams = (param) => {
     const newParams = { ...params };
@@ -21,7 +23,11 @@ const Jobs = () => {
 
   return (
     <div>
-      <SearchForm params={params} changeParams={changeParams} />
+      <SearchForm
+        params={params}
+        changeParams={changeParams}
+        hasData={hasData}
+      />
       <JobPage>
         <div>
           <Pagination page={page} setPage={setPage} />
@@ -35,11 +41,12 @@ const Jobs = () => {
                   listing={listing}
                   index={index}
                   setCurrentJob={setCurrentJob}
+                  user={user}
                 />
               ))}
           </Listings>
         </div>
-        <Details className="bigCard">
+        <Details user={user} className="bigCard">
           {jobs[currentJob] && <JobDetails job={jobs[currentJob]} />}
         </Details>
         <Pagination page={page} setPage={setPage} />

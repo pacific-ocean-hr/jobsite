@@ -9,7 +9,13 @@ import moment from 'moment';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const JobListing = ({ listing, index, setCurrentJob, currentJobIndex }) => {
+const JobListing = ({
+  listing,
+  index,
+  setCurrentJob,
+  currentJobIndex,
+  user,
+}) => {
   const [hovered, setHovered] = useState(false);
   const [textHovered, setTextHovered] = useState(false);
   const toggleHovered = () => {
@@ -41,18 +47,20 @@ const JobListing = ({ listing, index, setCurrentJob, currentJobIndex }) => {
       </h3>
       <h6>
         Posted {moment(listing.publication_date).fromNow()}
-        <a href={listing.url} target="_blank" rel="noreferrer">
-          <ApplyButton
-            className="mainButton"
-            onMouseEnter={toggleHovered}
-            onMouseLeave={toggleHovered}
-            style={{
-              transform: `${hovered ? 'scale(1.15, 1.15)' : 'scale(1, 1)'}`,
-            }}
-          >
-            Apply
-          </ApplyButton>
-        </a>
+        {user && (
+          <a href={listing.url} target="_blank" rel="noreferrer">
+            <ApplyButton
+              className="mainButton"
+              onMouseEnter={toggleHovered}
+              onMouseLeave={toggleHovered}
+              style={{
+                transform: `${hovered ? 'scale(1.15, 1.15)' : 'scale(1, 1)'}`,
+              }}
+            >
+              Apply
+            </ApplyButton>
+          </a>
+        )}
       </h6>
     </Listing>
   );
