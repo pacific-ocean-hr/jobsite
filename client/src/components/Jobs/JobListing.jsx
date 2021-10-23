@@ -49,6 +49,16 @@ const DatePosted = styled.p`
   margin: 0;
 `;
 
+const ApplyButton = styled.button`
+  padding: 8px;
+  background-color: #49475b;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  justify-content: flex-end;
+`;
+
 const JobListing = ({ listing, index, setCurrentJob, currentJobIndex }) => {
   const { company_name, title, publication_date, url, salary, job_type, category } = listing;
   const isSelected = currentJobIndex === index;

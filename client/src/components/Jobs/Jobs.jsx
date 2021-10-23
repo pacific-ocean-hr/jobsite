@@ -16,7 +16,7 @@ const Jobs = ({ user }) => {
   const [heartColor, setHeartColor] = useState('white');
   const [saveJob, setSaveJob] = useState([]);
 
-  const { jobs } = fetchJobs(params, page);
+  const { jobs, hasData } = fetchJobs(params, page);
 
   useEffect(async () => {
     if (user) {
